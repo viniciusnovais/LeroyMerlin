@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.leroymerlin">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/leroy"
+        android:label="Leroy Merlin"
+        android:theme="@style/AppTheme">
+        <activity
+            android:noHistory="true"
+            android:name=".Activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Activity.HomeActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:label=""
+            android:name=".Activity.AtendimentoActivity">
+        </activity>
+
+        <activity
+            android:label=""
+            android:name=".Activity.Atendimento2Activity">
+        </activity>
+
+        <activity
+            android:label=""
+            android:name=".Activity.InventarioActivity">
+        </activity>
+
+        <activity
+            android:label=""
+            android:name=".Activity.Inventario2Activity">
+        </activity>
+        <activity
+            android:label=""
+            android:name=".Activity.PerdaActivity">
+        </activity>
+        <activity
+            android:label=""
+            android:name=".Activity.Perda2Activity">
+        </activity>
+
+        <activity
+            android:label=""
+            android:name=".Activity.GestaoActivity">
+        </activity>
+        <activity
+            android:label=""
+            android:name=".Activity.Gestao2Activity">
+        </activity>
+
+        <activity
+            android:label=""
+            android:name=".Activity.ComercioActivity">
+        </activity>
+        <activity
+            android:label=""
+            android:name=".Activity.Comercio2Activity">
+        </activity>
+
+        <activity
+            android:label=""
+            android:name=".Activity.LogisticaActivity">
+        </activity>
+        <activity
+            android:label=""
+            android:name=".Activity.Logistica2Activity">
+        </activity>
+
+
+    </application>
+
+</manifest>
