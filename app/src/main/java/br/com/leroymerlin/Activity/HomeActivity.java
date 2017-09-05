@@ -3,6 +3,7 @@ package br.com.leroymerlin.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,12 +29,11 @@ import br.com.leroymerlin.R;
 import br.com.leroymerlin.WebService.WebServiceSoapGet;
 
 public class HomeActivity extends AbsRuntimePermission {
-    private ImageButton btLogistica,btGestao,btInventario,btPerda,btComercio,btAtendimento;
-    private TextView tvLogistica,tvGestao,tvInventario,tvPerda,tvComercio,tvAtendimento;
+    private Button btLogistica, btGestao, btInventario, btPerda, btComercio, btAtendimento;
     static boolean errored;
-    SoapObject response=null;
+    SoapObject response = null;
     public static final int REQUEST_PERMISSION = 10;
-
+    private Bundle bundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,33 +42,26 @@ public class HomeActivity extends AbsRuntimePermission {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         requestAppPermissions(new String[]{
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,}, R.string.msg, REQUEST_PERMISSION);
 
 
         //Pegando Ids dos buttons
-        btLogistica=(ImageButton) findViewById(R.id.btLogistica);
-        btGestao=(ImageButton)findViewById(R.id.btGestao);
-        btInventario=(ImageButton)findViewById(R.id.btInventario);
-        btPerda=(ImageButton)findViewById(R.id.btPerda);
-        btComercio=(ImageButton)findViewById(R.id.btComercio);
-        btAtendimento=(ImageButton) findViewById(R.id.btAtendimento);
+        btLogistica = (Button) findViewById(R.id.btLogistica);
+        btGestao = (Button) findViewById(R.id.btGestao);
+        btInventario = (Button) findViewById(R.id.btInventario);
+        btPerda = (Button) findViewById(R.id.btPerda);
+        btComercio = (Button) findViewById(R.id.btComercio);
+        btAtendimento = (Button) findViewById(R.id.btAtendimento);
 
-        //Pegando ids dos TextViews status
-        tvLogistica=(TextView) findViewById(R.id.tvLogistica);
-        tvGestao=(TextView) findViewById(R.id.tvGestao);
-        tvInventario=(TextView) findViewById(R.id.tvInventario);
-        tvPerda=(TextView) findViewById(R.id.tvPerda);
-        tvComercio=(TextView) findViewById(R.id.tvComercio);
-        tvAtendimento=(TextView) findViewById(R.id.tvAtendimento);
-
-        AsyncEventoWS task = new AsyncEventoWS();
 
         btAtendimento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this,AtendimentoActivity.class);
+                Intent i = new Intent(HomeActivity.this, AtendimentoGrupoActivity.class);
+                i.putExtra("bundle_quantidade", bundle);
                 startActivity(i);
             }
         });
@@ -83,14 +77,15 @@ public class HomeActivity extends AbsRuntimePermission {
         btPerda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this,PerdaActivity.class);
+                Intent i = new Intent(HomeActivity.this, PerdaGrupoActivity.class);
+                i.putExtra("bundle_quantidade", bundle);
                 startActivity(i);
             }
         });
         btGestao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this,GestaoActivity.class);
+                Intent i = new Intent(HomeActivity.this, GestaoActivity.class);
                 startActivity(i);
             }
         });
@@ -98,7 +93,8 @@ public class HomeActivity extends AbsRuntimePermission {
         btComercio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this,ComercioActivity.class);
+                Intent i = new Intent(HomeActivity.this, ComercioGrupoActivity.class);
+                i.putExtra("bundle_quantidade", bundle);
                 startActivity(i);
             }
         });
@@ -106,11 +102,12 @@ public class HomeActivity extends AbsRuntimePermission {
         btLogistica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this,LogisticaActivity.class);
+                Intent i = new Intent(HomeActivity.this, LogisticaActivity.class);
                 startActivity(i);
             }
         });
 
+        AsyncEventoWS task = new AsyncEventoWS();
         temporizador_30_30(task);
 
     }
@@ -119,7 +116,7 @@ public class HomeActivity extends AbsRuntimePermission {
     public void onPermissionsGranted(int requestCode) {
     }
 
-    private class AsyncEventoWS extends AsyncTask{
+    private class AsyncEventoWS extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -129,64 +126,89 @@ public class HomeActivity extends AbsRuntimePermission {
 
         @Override
         protected void onPostExecute(Object o) {
-            if(!errored){
+            if (!errored) {
                 //Pegando resposta Pai
                 List<SoapObject> subResponse = new ArrayList<>();
-                for (int i =0;i<response.getPropertyCount();i++) {
-                    subResponse.add((SoapObject)response.getProperty(i));
+                for (int i = 0; i < response.getPropertyCount(); i++) {
+                    subResponse.add((SoapObject) response.getProperty(i));
                 }
-                if (subResponse!=null) {
+                if (subResponse != null) {
                     //SubResposta, Filho
-                    for (SoapObject obj : subResponse){
+                    for (SoapObject obj : subResponse) {
                         int cod = Integer.parseInt(obj.getProperty("Codigo").toString());
-                        int quantidade =Integer.parseInt(obj.getProperty("Quantidade").toString());
+                        int quantidade = Integer.parseInt(obj.getProperty("Quantidade").toString());
 
                         if (cod == 132) {
 
-                            if (quantidade > 0) {
-                                tvAtendimento.setVisibility(View.VISIBLE);
-                                tvAtendimento.setText(quantidade+"");
+                            if (quantidade >= 0) {
+                                if (quantidade == 0) btAtendimento.setTextColor(Color.BLACK);
+                                btAtendimento.setText(quantidade + "");
                             }
                         }
                         if (cod == 133) {
-                            if (quantidade > 0) {
-                                tvLogistica.setVisibility(View.VISIBLE);
-                                tvLogistica.setText(quantidade+"");
+                            if (quantidade >= 0) {
+                                if (quantidade == 0) btLogistica.setTextColor(Color.BLACK);
+                                btLogistica.setText(quantidade + "");
                             }
                         }
                         if (cod == 134) {
-                            if (quantidade > 0) {
-                                tvComercio.setVisibility(View.VISIBLE);
-                                tvComercio.setText(quantidade+"");
+                            if (quantidade >= 0) {
+                                if (quantidade == 0) btComercio.setTextColor(Color.BLACK);
+                                btComercio.setText(quantidade + "");
                             }
                         }
                         if (cod == 135) {
-                            if (quantidade > 0) {
-                                tvGestao.setVisibility(View.VISIBLE);
-                                tvGestao.setText(quantidade+"");
+                            if (quantidade >= 0) {
+                                if (quantidade == 0) btGestao.setTextColor(Color.BLACK);
+                                btGestao.setText(quantidade + "");
                             }
                         }
                         if (cod == 136) {
-                            if (quantidade > 0) {
-                                tvInventario.setVisibility(View.VISIBLE);
-                                tvInventario.setText(quantidade+"");
+                            if (quantidade >= 0) {
+                                if (quantidade == 0) btInventario.setTextColor(Color.BLACK);
+                                btInventario.setText(quantidade + "");
                             }
                         }
 
                         if (cod == 137) {
-                            if (quantidade > 0) {
-                                tvPerda.setVisibility(View.VISIBLE);
-                                tvPerda.setText(quantidade+"");
+                            if (quantidade >= 0) {
+                                if (quantidade == 0) btPerda.setTextColor(Color.BLACK);
+                                btPerda.setText(quantidade + "");
                             }
                         }
+
+                        //SubGrupo do atendimento
+                        if (cod == 141) {
+                            bundle.putInt("descontos", quantidade);
+                        }
+
+                        if (cod == 144) {
+                            bundle.putInt("cancelamento", quantidade);
+                        }
+
+                        if (cod == 148) {
+                            bundle.putInt("faturamento", quantidade);
+                        }
+                        //subGrupo prevenção
+                        if (cod == 145) {
+                            bundle.putInt("demarca_conhecida", quantidade);
+                        }
+                        //subGrupo Comercio
+                        if (cod == 147) {
+                            bundle.putInt("margem_negativa", quantidade);
+                        }
+
+                        if (cod == 149) {
+                            bundle.putInt("assistencia_tec", quantidade);
+                        }
                     }
-                } else{
+                } else {
                     //Set Error message
-                    Toast.makeText(getApplicationContext(),"Falha",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Falha", Toast.LENGTH_SHORT).show();
                 }
                 //Error status is true
-            }else{
-                Toast.makeText(getApplicationContext(),"Erro invocando o WebService",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Erro invocando o WebService", Toast.LENGTH_SHORT).show();
             }
             //Re-initialize Error Status to False
             errored = false;
@@ -197,11 +219,10 @@ public class HomeActivity extends AbsRuntimePermission {
     protected void onStart() {
         super.onStart();
         //Mensagem de Bem-Vindo ao usuário
-        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME,MODE_PRIVATE);
-        TextView tv= ((TextView)findViewById(R.id.tvWelcome));
-        tv.setText("Bem-Vindo, "+sharedpreferences.getString("nome",""));
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
+        TextView tv = ((TextView) findViewById(R.id.tvWelcome));
+        tv.setText("Bem-Vindo, " + sharedpreferences.getString("nome", ""));
     }
-
 
 
     @Override
@@ -212,28 +233,28 @@ public class HomeActivity extends AbsRuntimePermission {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.btSair:
 
                 //Deslogar
-                SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME,MODE_PRIVATE);
+                SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.clear().commit();
 
-                Intent i = new Intent(HomeActivity.this,LoginActivity.class);
+                Intent i = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
 
                 return true;
             default:
-                return  super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(item);
         }
 
     }
 
     public void temporizador_30_30(final AsyncEventoWS task) {
-        final long TEMPO = (1000 * 10); // atualiza o site a cada 30 segundos
-        Log.w("inicio","inicio");
+        final long TEMPO = 200000; // atualiza o serviço a cada 3,30 minutos
+        Log.w("inicio", "inicio");
         Timer timer = null;
         task.execute();
         if (timer == null) {
@@ -243,7 +264,6 @@ public class HomeActivity extends AbsRuntimePermission {
                     try {
                         //chamar metodo
                         task.execute();
-                        Log.w("chama","10");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

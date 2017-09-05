@@ -4,8 +4,8 @@
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -13,8 +13,8 @@
         android:label="Leroy Merlin"
         android:theme="@style/AppTheme">
         <activity
-            android:noHistory="true"
-            android:name=".Activity.LoginActivity">
+            android:name=".Activity.LoginActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,62 +24,67 @@
         <activity
             android:name=".Activity.HomeActivity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:label=""
-            android:name=".Activity.AtendimentoActivity">
-        </activity>
+            android:name=".Activity.AtendimentoActivity"
+            android:label=""></activity>
 
         <activity
-            android:label=""
-            android:name=".Activity.Atendimento2Activity">
-        </activity>
+            android:name=".Activity.Atendimento2Activity"
+            android:label=""></activity>
 
         <activity
-            android:label=""
-            android:name=".Activity.InventarioActivity">
-        </activity>
+            android:name=".Activity.InventarioActivity"
+            android:label=""></activity>
 
         <activity
-            android:label=""
-            android:name=".Activity.Inventario2Activity">
-        </activity>
+            android:name=".Activity.Inventario2Activity"
+            android:label=""></activity>
         <activity
-            android:label=""
-            android:name=".Activity.PerdaActivity">
-        </activity>
+            android:name=".Activity.PerdaActivity"
+            android:label=""></activity>
         <activity
-            android:label=""
-            android:name=".Activity.Perda2Activity">
-        </activity>
+            android:name=".Activity.Perda2Activity"
+            android:label=""></activity>
 
         <activity
-            android:label=""
-            android:name=".Activity.GestaoActivity">
-        </activity>
+            android:name=".Activity.GestaoActivity"
+            android:label=""></activity>
         <activity
-            android:label=""
-            android:name=".Activity.Gestao2Activity">
-        </activity>
+            android:name=".Activity.Gestao2Activity"
+            android:label=""></activity>
 
         <activity
-            android:label=""
-            android:name=".Activity.ComercioActivity">
-        </activity>
+            android:name=".Activity.ComercioActivity"
+            android:label=""></activity>
         <activity
-            android:label=""
-            android:name=".Activity.Comercio2Activity">
-        </activity>
+            android:name=".Activity.Comercio2Activity"
+            android:label=""></activity>
 
         <activity
-            android:label=""
-            android:name=".Activity.LogisticaActivity">
-        </activity>
+            android:name=".Activity.LogisticaActivity"
+            android:label=""></activity>
         <activity
-            android:label=""
-            android:name=".Activity.Logistica2Activity">
+            android:name=".Activity.Logistica2Activity"
+            android:label=""></activity>
+
+        <activity android:name=".Activity.AtendimentoGrupoActivity">
+
         </activity>
+
+        <activity android:name=".Activity.DescontosGraficosActivity"></activity>
+
+        <activity
+            android:name=".Activity.GraficoActivity"
+            android:label=""></activity>
+
+        <activity
+            android:name=".Activity.ComercioGrupoActivity"
+            android:label=""></activity>
+
+        <activity
+            android:name=".Activity.PerdaGrupoActivity"
+            android:label=""></activity>
 
 
     </application>

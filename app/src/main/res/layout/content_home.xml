@@ -1,288 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_height="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="50dp"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:fontFamily="casual"
+            android:text=""
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:srcCompat="@mipmap/leroy" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight=".5"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btAtendimento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_button_home"
+                    android:drawableTop="@drawable/ic_atendimento"
+                    android:padding="10dp"
+                    android:text="0"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/atendimento" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight=".5"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btInventario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_button_home"
+                    android:drawableTop="@drawable/ic_barcode"
+                    android:padding="10dp"
+                    android:text="0"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/inventario" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight=".5"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btPerda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_button_home"
+                    android:drawableTop="@drawable/ic_lupa"
+                    android:padding="10dp"
+                    android:text="0"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/perda" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight=".5"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btGestao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_button_home"
+                    android:drawableTop="@drawable/ic_gestao"
+                    android:padding="10dp"
+                    android:text="0"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/gestao" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight=".5"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btComercio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_button_home"
+                    android:drawableTop="@drawable/ic_comercio"
+                    android:padding="10dp"
+                    android:text="0"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/comercio" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight=".5"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btLogistica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/border_button_home"
+                    android:drawableTop="@drawable/ic_logistica"
+                    android:padding="10dp"
+                    android:text="0"
+                    android:textColor="@color/colorRed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/logistica" />
+
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvWelcome"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
-            android:fontFamily="casual"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            app:srcCompat="@mipmap/leroy"
-            android:layout_marginTop="10dp"
-            android:id="@+id/imageView" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            >
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight=".5">
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border_button_home"
-                    android:id="@+id/btAtendimento"
-                    android:src="@drawable/ic_atendimento"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <TextView
-                    android:id="@+id/tvAtendimento"
-                    android:visibility="gone"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="80dp"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:background="@drawable/border_alerta"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="5"/>
-
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight=".5">
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_button_home"
-                    android:id="@+id/btInventario"
-                    android:src="@drawable/ic_barcode"
-                    />
-
-                <TextView
-                    android:id="@+id/tvInventario"
-                    android:visibility="gone"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="80dp"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:background="@drawable/border_alerta"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="10"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight=".5">
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/border_button_home"
-                    android:id="@+id/btPerda"
-                    android:src="@drawable/ic_lupa"
-                    />
-
-                <TextView
-                    android:id="@+id/tvPerda"
-                    android:visibility="gone"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="80dp"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:background="@drawable/border_alerta"
-                    android:textSize="20dp"
-                    android:text="10"
-                    android:textColor="@color/colorBlack"/>
-
-            </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/atendimento"
-                android:layout_marginRight="45dp" />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/inventario"
-                android:layout_marginRight="45dp" />
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/perda"
-                android:layout_marginRight="10dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            >
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight=".5">
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border_button_home"
-                    android:id="@+id/btGestao"
-                    android:src="@drawable/ic_gestao"
-                    />
-
-                <TextView
-                    android:id="@+id/tvGestao"
-                    android:visibility="gone"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="80dp"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:background="@drawable/border_alerta"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="33"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight=".5">
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border_button_home"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/btComercio"
-                    android:src="@drawable/ic_comercio"
-                    />
-
-                <TextView
-                    android:id="@+id/tvComercio"
-                    android:visibility="gone"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:background="@drawable/border_alerta"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="7"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight=".5">
-
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border_button_home"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/btLogistica"
-                    android:src="@drawable/ic_logistica"
-                    />
-
-                <TextView
-                    android:id="@+id/tvLogistica"
-                    android:visibility="gone"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="80dp"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:background="@drawable/border_alerta"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="99"/>
-
-            </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/gestao"
-                android:layout_marginRight="65dp" />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/comercio"
-                android:layout_marginRight="55dp" />
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/logistica"
-                android:layout_marginRight="0dp" />
-
-        </LinearLayout>
-
-
+            android:text="Versão: 2.0.0" />
 
     </LinearLayout>
 </ScrollView>
