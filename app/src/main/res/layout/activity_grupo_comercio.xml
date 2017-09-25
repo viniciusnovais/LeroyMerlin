@@ -8,41 +8,14 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight=".5"
-            android:orientation="vertical">
-
-
-            <Button
-                android:id="@+id/btMargemNegativa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_button_home"
-                android:drawableTop="@drawable/ic_warning_sign_on_a_triangular_background"
-                android:padding="10dp"
-                android:text="46464964" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Margem Negativa" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="180dp"
             android:layout_height="130dp"
             android:layout_marginLeft="10dp"
-            android:layout_weight=".5"
             android:orientation="vertical">
 
             <Button
@@ -52,7 +25,7 @@
                 android:background="@drawable/border_button_home"
                 android:drawableTop="@drawable/ic_open_wrench_tool_silhouette"
                 android:padding="10dp"
-                android:text="63164164" />
+                android:text="0" />
 
             <TextView
                 android:layout_width="wrap_content"

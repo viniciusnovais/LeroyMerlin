@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
-    android:gravity="center"
     android:layout_marginRight="16dp"
+    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,7 +27,7 @@
                 android:background="@drawable/border_button_home"
                 android:drawableTop="@drawable/ic_money"
                 android:padding="10dp"
-                android:text="46464964" />
+                android:text="0" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
                 android:background="@drawable/border_button_home"
                 android:drawableTop="@drawable/ic_rosto_triste"
                 android:padding="10dp"
-                android:text="63164164" />
+                android:text="0" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,7 +83,8 @@
                 android:background="@drawable/border_button_home"
                 android:drawableTop="@drawable/ic_ticket"
                 android:padding="10dp"
-                android:text="6464646" />
+                android:text="0"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

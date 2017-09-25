@@ -5,9 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -21,40 +19,39 @@ import br.com.leroymerlin.R;
 import br.com.leroymerlin.WebService.WebServiceSoapGet;
 
 /**
- * Created by PDA on 31/08/2017.
+ * Created by PDA on 18/09/2017.
  */
 
-public class ComercioGrupoActivity extends AppCompatActivity {
+public class GestaoGrupoActivity extends AppCompatActivity {
 
-    private Button btAssistenciaTec;
+    private Button btMargemNegativa;
     private Bundle bundle;
     static boolean errored;
 
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_app);
-        setContentView(R.layout.activity_grupo_comercio);
+        setContentView(R.layout.activity_grupo_gestao);
 
-        btAssistenciaTec = (Button) findViewById(R.id.btAssistenciaTec);
+        bundle = getIntent().getBundleExtra("bundle_gestao");
 
-        bundle = getIntent().getBundleExtra("bundle_comercio");
+        btMargemNegativa = (Button) findViewById(R.id.btMargemNegativa);
 
-        btAssistenciaTec.setOnClickListener(new View.OnClickListener() {
+        btMargemNegativa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ComercioGrupoActivity.this, GraficoActivity.class);
-                i.putExtra("tipo", 305);
+                Intent i = new Intent(GestaoGrupoActivity.this, GraficoActivity.class);
+                i.putExtra("codMenu", 147);
+                i.putExtra("tipo", 406);
                 startActivity(i);
-
             }
         });
 
         AsyncEvent task = new AsyncEvent();
         task.execute();
+
     }
+
 
     public class AsyncEvent extends AsyncTask {
 
@@ -63,7 +60,7 @@ public class ComercioGrupoActivity extends AppCompatActivity {
 
         @Override
         protected Object doInBackground(Object[] params) {
-            response = WebServiceSoapGet.EventoAberto(sharedPreferences.getInt("codUsuario", 0), bundle.getInt("bundle_comercio"));
+            response = WebServiceSoapGet.EventoAberto(sharedPreferences.getInt("codUsuario", 0), bundle.getInt("bundle_gestao"));
             return null;
         }
 
@@ -83,12 +80,12 @@ public class ComercioGrupoActivity extends AppCompatActivity {
                         int cod = Integer.parseInt(obj.getProperty("CodigoMenu").toString());
                         int quantidade = Integer.parseInt(obj.getProperty("Pendencia").toString());
                         //só deixo para saber qual codigo do subgrupo estou usando
-                        int codTile = Integer.parseInt(obj.getProperty("CodigoTile").toString());
+                        Integer.parseInt(obj.getProperty("CodigoTile").toString());
 
-                        if (cod == 149) {
+                        if (cod == 147) {
                             if (quantidade >= 0) {
-                                btAssistenciaTec.setTextColor(Color.RED);
-                                btAssistenciaTec.setText(quantidade + "");
+                                btMargemNegativa.setTextColor(Color.RED);
+                                btMargemNegativa.setText(quantidade + "");
                             }
                         }
                     }

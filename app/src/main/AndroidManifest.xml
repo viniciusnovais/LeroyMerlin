@@ -72,7 +72,6 @@
 
         </activity>
 
-        <activity android:name=".Activity.DescontosGraficosActivity"></activity>
 
         <activity
             android:name=".Activity.GraficoActivity"
@@ -86,6 +85,17 @@
             android:name=".Activity.PerdaGrupoActivity"
             android:label=""></activity>
 
+        <activity
+            android:name=".Activity.ListaActivity"
+            android:label=""></activity>
+
+        <activity
+            android:name=".Activity.ListaJustificativaActivity"
+            android:label=""></activity>
+
+        <activity
+            android:name=".Activity.GestaoGrupoActivity"
+            android:label=""></activity>
 
     </application>
 

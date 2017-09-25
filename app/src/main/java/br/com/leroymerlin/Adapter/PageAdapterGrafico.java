@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.github.mikephil.charting.data.BarEntry;
+
+import java.util.List;
+
 import br.com.leroymerlin.Fragment.FragmentGrafico;
 import br.com.leroymerlin.R;
 
@@ -32,13 +36,13 @@ public class PageAdapterGrafico extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new FragmentGrafico().novaInstancia(45, colorsHojePorFilial, cod);
+                return new FragmentGrafico().novaInstancia(0, colorsHojePorFilial, cod);
             case 1:
-                return new FragmentGrafico().novaInstancia(5, colorsPorRegional, cod);
+                return new FragmentGrafico().novaInstancia(1, colorsPorRegional, cod);
             case 2:
-                return new FragmentGrafico().novaInstancia(30, colorsNoMes, cod);
+                return new FragmentGrafico().novaInstancia(2, colorsNoMes, cod);
             case 3:
-                return new FragmentGrafico().novaInstancia(2, colorsUltimosMeses, cod);
+                return new FragmentGrafico().novaInstancia(3, colorsUltimosMeses, cod);
             default:
                 return null;
         }

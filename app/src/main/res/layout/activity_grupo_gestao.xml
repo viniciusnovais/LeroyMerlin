@@ -2,24 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     android:gravity="center"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:layout_width="180dp"
         android:layout_height="130dp"
         android:orientation="vertical">
 
-
         <Button
-            android:id="@+id/btDemarcaConhecida"
+            android:id="@+id/btMargemNegativa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border_button_home"
-            android:drawableTop="@drawable/ic_barcode_2"
+            android:drawableTop="@drawable/ic_warning_sign_on_a_triangular_background"
             android:padding="10dp"
             android:text="0" />
 
@@ -28,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Demarca conhecida" />
+            android:text="Margem Negativa" />
 
     </LinearLayout>
 

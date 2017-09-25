@@ -25,4 +25,10 @@
     <string name="logistica">Logística</string>
     <string name="title_activity_teste">TesteActivity</string>
     <string name="msg">Por favor, Permita todos</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="salvar">Salvar</string>
+    <string name="hoje">Hoje</string>
+    <string name="semana">Semana</string>
+    <string name="mes">Mês</string>
+    <string name="ano">Ano</string>
 </resources>

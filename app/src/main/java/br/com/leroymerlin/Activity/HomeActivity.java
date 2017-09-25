@@ -61,7 +61,7 @@ public class HomeActivity extends AbsRuntimePermission {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HomeActivity.this, AtendimentoGrupoActivity.class);
-                i.putExtra("bundle_quantidade", bundle);
+                i.putExtra("bundle_atendimento", bundle);
                 startActivity(i);
             }
         });
@@ -78,14 +78,15 @@ public class HomeActivity extends AbsRuntimePermission {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HomeActivity.this, PerdaGrupoActivity.class);
-                i.putExtra("bundle_quantidade", bundle);
+                i.putExtra("bundle_perda", bundle);
                 startActivity(i);
             }
         });
         btGestao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this, GestaoActivity.class);
+                Intent i = new Intent(HomeActivity.this, GestaoGrupoActivity.class);
+                i.putExtra("bundle_gestao", bundle);
                 startActivity(i);
             }
         });
@@ -94,7 +95,7 @@ public class HomeActivity extends AbsRuntimePermission {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HomeActivity.this, ComercioGrupoActivity.class);
-                i.putExtra("bundle_quantidade", bundle);
+                i.putExtra("bundle_comercio", bundle);
                 startActivity(i);
             }
         });
@@ -118,9 +119,11 @@ public class HomeActivity extends AbsRuntimePermission {
 
     private class AsyncEventoWS extends AsyncTask {
 
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
+
         @Override
         protected Object doInBackground(Object[] objects) {
-            response = WebServiceSoapGet.EventoAberto();
+            response = WebServiceSoapGet.EventoAberto(sharedpreferences.getInt("codUsuario", 0), sharedpreferences.getInt("codFilial", 0));
             return null;
         }
 
@@ -135,71 +138,54 @@ public class HomeActivity extends AbsRuntimePermission {
                 if (subResponse != null) {
                     //SubResposta, Filho
                     for (SoapObject obj : subResponse) {
-                        int cod = Integer.parseInt(obj.getProperty("Codigo").toString());
-                        int quantidade = Integer.parseInt(obj.getProperty("Quantidade").toString());
+                        int cod = Integer.parseInt(obj.getProperty("CodigoMenu").toString());
+                        int codTile = Integer.parseInt(obj.getProperty("CodigoTile").toString());
+                        int quantidade = Integer.parseInt(obj.getProperty("Pendencia").toString());
 
                         if (cod == 132) {
 
                             if (quantidade >= 0) {
-                                if (quantidade == 0) btAtendimento.setTextColor(Color.BLACK);
+                                btAtendimento.setTextColor(Color.RED);
                                 btAtendimento.setText(quantidade + "");
+                                bundle.putInt("bundle_atendimento", codTile);
+
                             }
                         }
                         if (cod == 133) {
                             if (quantidade >= 0) {
-                                if (quantidade == 0) btLogistica.setTextColor(Color.BLACK);
+                                btLogistica.setTextColor(Color.RED);
                                 btLogistica.setText(quantidade + "");
+                                bundle.putInt("bundle_logistica", codTile);
                             }
                         }
                         if (cod == 134) {
                             if (quantidade >= 0) {
-                                if (quantidade == 0) btComercio.setTextColor(Color.BLACK);
+                                btComercio.setTextColor(Color.RED);
                                 btComercio.setText(quantidade + "");
+                                bundle.putInt("bundle_comercio", codTile);
                             }
                         }
                         if (cod == 135) {
                             if (quantidade >= 0) {
-                                if (quantidade == 0) btGestao.setTextColor(Color.BLACK);
+                                btGestao.setTextColor(Color.RED);
                                 btGestao.setText(quantidade + "");
+                                bundle.putInt("bundle_gestao", codTile);
                             }
                         }
                         if (cod == 136) {
                             if (quantidade >= 0) {
-                                if (quantidade == 0) btInventario.setTextColor(Color.BLACK);
+                                btInventario.setTextColor(Color.RED);
                                 btInventario.setText(quantidade + "");
+                                bundle.putInt("bundle_inventario", codTile);
                             }
                         }
 
                         if (cod == 137) {
                             if (quantidade >= 0) {
-                                if (quantidade == 0) btPerda.setTextColor(Color.BLACK);
+                                btPerda.setTextColor(Color.RED);
                                 btPerda.setText(quantidade + "");
+                                bundle.putInt("bundle_perda", codTile);
                             }
-                        }
-
-                        //SubGrupo do atendimento
-                        if (cod == 141) {
-                            bundle.putInt("descontos", quantidade);
-                        }
-
-                        if (cod == 144) {
-                            bundle.putInt("cancelamento", quantidade);
-                        }
-
-                        if (cod == 148) {
-                            bundle.putInt("faturamento", quantidade);
-                        }
-                        //subGrupo prevenção
-                        if (cod == 145) {
-                            bundle.putInt("demarca_conhecida", quantidade);
-                        }
-                        //subGrupo Comercio
-                        if (cod == 147) {
-                            bundle.putInt("margem_negativa", quantidade);
-                        }
-
-                        if (cod == 149) {
-                            bundle.putInt("assistencia_tec", quantidade);
                         }
                     }
                 } else {
@@ -218,8 +204,8 @@ public class HomeActivity extends AbsRuntimePermission {
     @Override
     protected void onStart() {
         super.onStart();
-        //Mensagem de Bem-Vindo ao usuário
         SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
+        //Mensagem de Bem-Vindo ao usuário
         TextView tv = ((TextView) findViewById(R.id.tvWelcome));
         tv.setText("Bem-Vindo, " + sharedpreferences.getString("nome", ""));
     }

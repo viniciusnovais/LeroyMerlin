@@ -14,24 +14,43 @@ import br.com.leroymerlin.Activity.LoginActivity;
 
 public class WebServiceSoapGet {
 
-    private static String URL="http://10.56.96.86/wsauditoria/Auditoria.asmx";
+    //private static String URL="http://10.56.96.86/wsauditoria/Auditoria.asmx";
+    private static String URL = "http://192.168.15.22/wsandroid/auditoria.asmx";
 
     private static String SOAP_ACTION = "http://tempuri.org/";
 
-    private static String METHOD_NAME="EventosAberto";
-    private static String METHOD_NAME2="EventosAbertoNivel2";
+    private static String METHOD_NAME = "GetDashboard";
+    private static String METHOD_NAME2 = "EventosAbertoNivel2";
 
-    private static String NAMESPACE="http://tempuri.org/";
+    private static String NAMESPACE = "http://tempuri.org/";
 
-    public static SoapObject EventoAberto() {
-        SoapObject response=null;
+
+    public static SoapObject EventoAberto(int codUsuario, int codDashBoard) {
+        SoapObject response = null;
+
         // Create request
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+
+        PropertyInfo piCodUsuario = new PropertyInfo();
+        PropertyInfo piCodDashBoard = new PropertyInfo();
+
+        piCodUsuario.setName("codigoUsuario");
+        piCodUsuario.setValue(codUsuario);
+        piCodUsuario.setType(PropertyInfo.INTEGER_CLASS);
+
+        request.addProperty(piCodUsuario);
+
+        piCodDashBoard.setName("codigoDashboad");
+        piCodDashBoard.setValue(codDashBoard);
+        piCodDashBoard.setType(PropertyInfo.INTEGER_CLASS);
+
+        request.addProperty(piCodDashBoard);
+
 
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
 
-        envelope.dotNet=true;
+        envelope.dotNet = true;
         // Set output SOAP object
         envelope.setOutputSoapObject(request);
         // Create HTTP call object
@@ -39,7 +58,7 @@ public class WebServiceSoapGet {
 
         try {
             // Invoke web service
-            androidHttpTransport.call(SOAP_ACTION+METHOD_NAME, envelope);
+            androidHttpTransport.call(SOAP_ACTION + METHOD_NAME, envelope);
             // Get the response
             response = (SoapObject) envelope.getResponse();
 
@@ -54,7 +73,7 @@ public class WebServiceSoapGet {
     }
 
     public static SoapObject EventoAbertoNivel2(String v) {
-        SoapObject response=null;
+        SoapObject response = null;
         // Create request
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME2);
 
@@ -71,7 +90,7 @@ public class WebServiceSoapGet {
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
 
-        envelope.dotNet=true;
+        envelope.dotNet = true;
         // Set output SOAP object
         envelope.setOutputSoapObject(request);
         // Create HTTP call object
@@ -79,7 +98,7 @@ public class WebServiceSoapGet {
 
         try {
             // Invoke web service
-            androidHttpTransport.call(SOAP_ACTION+METHOD_NAME2, envelope);
+            androidHttpTransport.call(SOAP_ACTION + METHOD_NAME2, envelope);
             // Get the response
             response = (SoapObject) envelope.getResponse();
 

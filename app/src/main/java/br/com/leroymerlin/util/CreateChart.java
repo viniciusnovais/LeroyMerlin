@@ -22,12 +22,14 @@ public class CreateChart {
     //passarei por um vetor de String
     //public static void barChart(Context context, List<BarEntry> barEntries, String[] quarters, int[] colors) {
 
-    public static BarChart barChart(Context context, BarChart barChart, List<BarEntry> barEntries, int[] colors) {
+    public static BarChart barChart(Context context, BarChart barChart, List<BarEntry> barEntries, int[] colors, List<String> legendas) {
         BarDataSet barDataSet = new BarDataSet(barEntries, "Dates");
         barDataSet.setColors(colors, context);
 
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.5f);
+        //data.setValueFormatter(new MyValueFormatter(new MyValueFormatter(barDataSet.getValues())));
+        data.setValueTextSize(15f);
         barChart.setData(data);
         //barChart.animateY(2000, Easing.EasingOption.EaseInQuad);
         barChart.fitScreen();
@@ -50,7 +52,7 @@ public class CreateChart {
         xAxis.setEnabled(true);
         xAxis.setTextSize(10f);
         xAxis.setLabelRotationAngle(60f);
-        //xAxis.setValueFormatter(new MyValueFormatter(quarters));
+        xAxis.setValueFormatter(new MyValueFormatter(legendas));
 
 
         YAxis rightyAxis = barChart.getAxisRight();

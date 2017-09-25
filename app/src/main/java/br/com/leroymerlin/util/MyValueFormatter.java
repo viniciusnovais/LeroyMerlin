@@ -1,25 +1,40 @@
 package br.com.leroymerlin.util;
 
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * Created by PDA on 05/07/2017.
  */
 
-public class MyValueFormatter implements IAxisValueFormatter {
-    private String[] mFormat;
+public class MyValueFormatter implements IAxisValueFormatter, IValueFormatter {
+    private List<String> mFormat;
+    private List<Entry> lista;
+    private float valor;
 
-    public MyValueFormatter(String[] mFormat) {
+    public MyValueFormatter(List<Entry> lista, float valor) {
+        this.valor = valor;
+        this.lista = lista;
+    }
 
-        this.mFormat=mFormat;
+    public MyValueFormatter(List<String> mFormat) {
+
+        this.mFormat = mFormat;
     }
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
-        return mFormat[(int) value];
+        return mFormat.get((int) value);
     }
 
+    @Override
+    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+        return null;
+    }
 }

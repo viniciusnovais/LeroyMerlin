@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
@@ -18,7 +18,7 @@
         <LinearLayout
             android:id="@+id/linearLayoutBox"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <LinearLayout
@@ -185,8 +185,8 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -198,9 +198,11 @@
             <EditText
                 android:id="@+id/editJustificativa"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:background="@drawable/border2"
                 android:maxEms="10"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:padding="3dp"
                 android:gravity="left|top"
                 android:focusableInTouchMode="false"
@@ -214,20 +216,23 @@
 
             <Button
                 android:id="@+id/btSalvar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight=".33"
+                android:layout_height="match_parent"
                 android:text="Salvar"/>
 
                 <Button
                     android:id="@+id/btCamera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight=".33"
+                    android:layout_height="match_parent"
                     android:text="Camera"/>
 
                 <Button
                     android:id="@+id/btCancelar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight=".33"
+                    android:layout_height="match_parent"
                     android:text="Cancelar"/>
             </LinearLayout>
 

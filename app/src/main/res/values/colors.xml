@@ -9,5 +9,9 @@
     <color name="colorRed">#f90b0b</color>
     <color name="colorBlue">#0bc5f9</color>
     <color name="colorGreen">#03680e</color>
-    <color name="colorGreenLight">#bef2a0</color>
+    <color name="colorGreenLight">#9ef969</color>
+    <color name="colorGreenWater">#09eaaa</color>
+    <color name="colorOrange">#fd910c</color>
+    <color name="colorPink">#eda99c</color>
+    <color name="colorLilac">#6684e9</color>
 </resources>
