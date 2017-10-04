@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -18,6 +19,8 @@ import java.util.List;
 
 import br.com.leroymerlin.R;
 import br.com.leroymerlin.WebService.WebServiceSoapGet;
+
+import static br.com.leroymerlin.Activity.LoginActivity.PREF_NAME;
 
 /**
  * Created by PDA on 30/08/2017.
@@ -39,6 +42,10 @@ public class AtendimentoGrupoActivity extends AppCompatActivity {
         btDesconto = (Button) findViewById(R.id.btDesconto);
         btCancelamentoCupom = (Button) findViewById(R.id.btCancelamentoCupom);
         btPedidoPendente = (Button) findViewById(R.id.btPedidoPendente);
+
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+        Toast.makeText(this, "cod" + preferences.getInt("codFilial", 0), Toast.LENGTH_SHORT).show();
 
 
         //pegando as quantidades do serviço q estavam na outra activity
@@ -79,7 +86,7 @@ public class AtendimentoGrupoActivity extends AppCompatActivity {
 
     public class AsyncEvent extends AsyncTask {
 
-        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         SoapObject response = null;
 
         @Override

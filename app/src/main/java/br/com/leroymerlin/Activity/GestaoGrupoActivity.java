@@ -41,7 +41,6 @@ public class GestaoGrupoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GestaoGrupoActivity.this, GraficoActivity.class);
-                i.putExtra("codMenu", 147);
                 i.putExtra("tipo", 406);
                 startActivity(i);
             }

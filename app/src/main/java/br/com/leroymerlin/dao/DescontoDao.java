@@ -46,7 +46,7 @@ public class DescontoDao {
             deletar();
             for (Desconto d : lista) {
                 ContentValues values = new ContentValues();
-
+                values.put("cod", d.getCod());
                 values.put("codigoUsuario", d.getCodigoUsuario());
                 values.put("codigoFilial", d.getCodigoFilial());
                 values.put("filial", d.getFilial());
@@ -64,10 +64,13 @@ public class DescontoDao {
                 values.put("justificativa", d.getJustificativa());
                 values.put("dataInicio", d.getDataInicio());
                 values.put("dataFim", d.getDataFim());
+                values.put("valorVenda", d.getValorVenda());
+                values.put("operador", d.getOperador());
+                values.put("vendedor", d.getVendedor());
                 values.put("nomeCliente", d.getNomeCliente());
                 values.put("cpfCliente", d.getCpfCliente());
                 values.put("export", 0);
-
+                values.put("imagem", d.getImagem());
                 getDataBase().insert("desconto", null, values);
             }
 
@@ -77,12 +80,15 @@ public class DescontoDao {
         }
     }
 
+    public void deletar() {
+        getDataBase().delete("desconto", null, null);
+    }
+
     public void alterarJustificativa(Desconto d) {
         ContentValues values = new ContentValues();
         values.put("justificativa", d.getJustificativa());
-
-        getDataBase().update("desconto", values, "numNota = ? and serie = ? and codigoFilial = ? and codLm = ?",
-                new String[]{d.getNumNota() + "", d.getSerie(), d.getCodigoFilial() + "", d.getCodLm() + ""});
+        values.put("imagem", d.getImagem());
+        getDataBase().update("desconto", values, "cod = ?", new String[]{d.getCod() + ""});
     }
 
     public void export(Desconto d) {
@@ -105,20 +111,24 @@ public class DescontoDao {
         try {
             while (cursor.moveToNext()) {
                 Desconto d = new Desconto();
+                d.setCod(Float.parseFloat(cursor.getString(cursor.getColumnIndex("cod"))));
                 d.setCodigoUsuario(cursor.getInt(cursor.getColumnIndex("codigoUsuario")));
                 d.setCodigoFilial(cursor.getInt(cursor.getColumnIndex("codigoFilial")));
                 d.setFilial(cursor.getString(cursor.getColumnIndex("filial")));
                 d.setRegional(cursor.getString(cursor.getColumnIndex("regional")));
-                d.setNumNota(cursor.getFloat(cursor.getColumnIndex("numNota")));
+                d.setNumNota(cursor.getString(cursor.getColumnIndex("numNota")));
                 d.setSerie(cursor.getString(cursor.getColumnIndex("serie")));
                 d.setSecao(cursor.getString(cursor.getColumnIndex("secao")));
-                d.setCodLm(cursor.getFloat(cursor.getColumnIndex("codLm")));
+                d.setCodLm(cursor.getString(cursor.getColumnIndex("codLm")));
                 d.setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
                 d.setValorNF(cursor.getFloat(cursor.getColumnIndex("valorNF")));
                 d.setValorDesconto(cursor.getFloat(cursor.getColumnIndex("valorDesconto")));
                 d.setPercentual(cursor.getFloat(cursor.getColumnIndex("percentual")));
                 d.setOcorrencia(cursor.getString(cursor.getColumnIndex("ocorrencia")));
                 d.setData(cursor.getString(cursor.getColumnIndex("data")));
+                d.setVendedor(cursor.getString(cursor.getColumnIndex("vendedor")));
+                d.setOperador(cursor.getString(cursor.getColumnIndex("operador")));
+                d.setValorVenda(Float.parseFloat(cursor.getString(cursor.getColumnIndex("valorVenda"))));
                 d.setJustificativa(cursor.getString(cursor.getColumnIndex("justificativa")));
                 d.setDataInicio(cursor.getString(cursor.getColumnIndex("dataInicio")));
                 d.setDataFim(cursor.getString(cursor.getColumnIndex("dataFim")));
@@ -136,7 +146,4 @@ public class DescontoDao {
         return lista;
     }
 
-    public void deletar() {
-        getDataBase().delete("desconto", null, null);
-    }
 }

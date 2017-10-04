@@ -6,15 +6,17 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ActivityChooserView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,10 @@ import java.util.TimerTask;
 
 import br.com.leroymerlin.R;
 import br.com.leroymerlin.WebService.WebServiceSoapGet;
+import br.com.leroymerlin.WebService.WebServiceSoapListaFilial;
+import br.com.leroymerlin.model.Filial;
+
+import static br.com.leroymerlin.Activity.LoginActivity.PREF_NAME;
 
 public class HomeActivity extends AbsRuntimePermission {
     private Button btLogistica, btGestao, btInventario, btPerda, btComercio, btAtendimento;
@@ -34,6 +40,7 @@ public class HomeActivity extends AbsRuntimePermission {
     SoapObject response = null;
     public static final int REQUEST_PERMISSION = 10;
     private Bundle bundle = new Bundle();
+    private SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,11 @@ public class HomeActivity extends AbsRuntimePermission {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedpreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
+        //Mensagem de Bem-Vindo ao usuário
+        TextView tv = ((TextView) findViewById(R.id.tvWelcome));
+        tv.setText("Bem-Vindo, " + sharedpreferences.getString("nome", ""));
 
         requestAppPermissions(new String[]{
                 Manifest.permission.CAMERA,
@@ -69,8 +80,7 @@ public class HomeActivity extends AbsRuntimePermission {
         btInventario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this, InventarioActivity.class);
-                startActivity(i);
+                Toast.makeText(HomeActivity.this, "Função inativa", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -103,14 +113,17 @@ public class HomeActivity extends AbsRuntimePermission {
         btLogistica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomeActivity.this, LogisticaActivity.class);
-                startActivity(i);
+                Toast.makeText(HomeActivity.this, "Função inativa", Toast.LENGTH_SHORT).show();
             }
         });
 
-        AsyncEventoWS task = new AsyncEventoWS();
-        temporizador_30_30(task);
-
+        if (sharedpreferences.getInt("codFilial", 0) == -1) {
+            AsyncListaFilial task2 = new AsyncListaFilial();
+            task2.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            AsyncEventoWS task = new AsyncEventoWS();
+            temporizador_30_30(task);
+        }
     }
 
     @Override
@@ -119,11 +132,11 @@ public class HomeActivity extends AbsRuntimePermission {
 
     private class AsyncEventoWS extends AsyncTask {
 
-        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            response = WebServiceSoapGet.EventoAberto(sharedpreferences.getInt("codUsuario", 0), sharedpreferences.getInt("codFilial", 0));
+            response = WebServiceSoapGet.EventoAberto(sharedpreferences.getInt("codUsuario", 0), -1);
+
             return null;
         }
 
@@ -201,15 +214,67 @@ public class HomeActivity extends AbsRuntimePermission {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
-        //Mensagem de Bem-Vindo ao usuário
-        TextView tv = ((TextView) findViewById(R.id.tvWelcome));
-        tv.setText("Bem-Vindo, " + sharedpreferences.getString("nome", ""));
-    }
+    public class AsyncListaFilial extends AsyncTask {
 
+
+        @Override
+        protected List<Filial> doInBackground(Object[] params) {
+
+            List<Filial> lista = WebServiceSoapListaFilial.getFilial();
+
+            return lista;
+        }
+
+        @Override
+        protected void onPostExecute(final Object lista) {
+            super.onPostExecute(lista);
+            View v = View.inflate(HomeActivity.this, R.layout.popup_selecao_filial, null);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            final AlertDialog dialog;
+            Spinner spinner = (Spinner) v.findViewById(R.id.spinnerFilial);
+            Button btConfirmar = (Button) v.findViewById(R.id.btConfirmar);
+
+            ArrayAdapter<Filial> arrayFilial =
+                    new ArrayAdapter<>(HomeActivity.this, android.R.layout.simple_spinner_item, (List<Filial>) lista);
+            spinner.setAdapter(arrayFilial);
+
+            builder.setTitle("Selecione a Filial");
+            builder.setView(v);
+            dialog = builder.create();
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCancelable(false);
+            dialog.show();
+
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Filial f = (Filial) parent.getItemAtPosition(position);
+                    SharedPreferences preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+
+                    editor.putInt("codFilial", f.getCodigo());
+                    editor.commit();
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+            btConfirmar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AsyncEventoWS task = new AsyncEventoWS();
+                    temporizador_30_30(task);
+                    dialog.dismiss();
+
+                }
+            });
+
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -223,7 +288,6 @@ public class HomeActivity extends AbsRuntimePermission {
             case R.id.btSair:
 
                 //Deslogar
-                SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.clear().commit();
 
@@ -249,7 +313,7 @@ public class HomeActivity extends AbsRuntimePermission {
                 public void run() {
                     try {
                         //chamar metodo
-                        task.execute();
+                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -39,14 +39,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="Filial:" />
+                        android:text="@string/filial" />
 
                     <TextView
                         android:id="@+id/tvFilial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="1-INTERLAGOS"
                         android:textColor="@color/colorBlack" />
 
                 </LinearLayout>
@@ -60,13 +59,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Série:" />
+                        android:text="@string/pedido" />
 
                     <TextView
-                        android:id="@+id/tvSerie"
+                        android:id="@+id/tvPedido"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="U18"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -79,13 +77,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nota:" />
+                        android:text="@string/caixa" />
 
                     <TextView
-                        android:id="@+id/tvNota"
+                        android:id="@+id/tvCaixa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="225593"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
             </LinearLayout>
@@ -108,13 +105,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="2dp"
-                        android:text="Data NF:" />
+                        android:text="@string/data_pedido" />
 
                     <TextView
-                        android:id="@+id/tvDataNF"
+                        android:id="@+id/tvDataPedido"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="22/09/2017 12:00:00"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -127,13 +123,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Caixa:" />
+                        android:text="@string/valor_parcial" />
 
                     <TextView
-                        android:id="@+id/tvCaixa"
+                        android:id="@+id/tvValorParcial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -147,13 +142,12 @@ r
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Valor NF:" />
+                        android:text="@string/valor_nf" />
 
                     <TextView
                         android:id="@+id/tvValorNf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="109,00"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -177,13 +171,12 @@ r
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Usuário Canc.:" />
+                        android:text="@string/data_entrega" />
 
                     <TextView
-                        android:id="@+id/tvUsuarioCan"
+                        android:id="@+id/tvDataEntrega"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="442 - CCX MMACEDO"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -197,13 +190,12 @@ r
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Condição Pagto.:" />
+                        android:text="@string/cliente" />
 
                     <TextView
-                        android:id="@+id/tvCondPagto"
+                        android:id="@+id/tvNomeCliente"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1 - A VISTA"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 

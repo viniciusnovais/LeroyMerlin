@@ -3,30 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Justifique:"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight=".9"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="start"
+            android:text="@string/justifique"
+
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/imageJustificativa"
+            android:layout_width="0dp"
+            android:layout_weight=".1"
+            android:src="@drawable/ic_camera_alt_black_48dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/editJustificativa"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:background="@drawable/border2"
         android:gravity="top"
-        android:padding="8dp"
-        android:inputType="text"
         android:hint="Descreva aqui a sua justificativa"
-        android:background="@drawable/border2" />
+        android:inputType="text"
+        android:padding="8dp" />
 
     <Button
         android:id="@+id/btEnviarJustificativa"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Enviar"
-        android:layout_height="wrap_content" />
+        android:text="Enviar" />
 
 </LinearLayout>

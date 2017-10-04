@@ -47,7 +47,7 @@ public class CancelamentoDao {
             deletar();
             for (Cancelamento c : lista) {
                 ContentValues values = new ContentValues();
-
+                values.put("cod", c.getCod());
                 values.put("codigoFilial", c.getCodigoFilial());
                 values.put("filial", c.getFilial());
                 values.put("regional", c.getRegional());
@@ -60,11 +60,12 @@ public class CancelamentoDao {
                 values.put("usuarioCancel", c.getUsuarioCancel());
                 values.put("codigoCondicao", c.getCodigoCondicao());
                 values.put("codicaoPagto", c.getCodigoPagto());
-                values.put("justificativa", c.getJustificativa());
+                values.put("justificativa", "");
                 values.put("codigoUsuario", c.getCodigoUsuario());
                 values.put("dataDe", c.getDataDe());
                 values.put("dataAte", c.getDataAte());
                 values.put("export", 0);
+                values.put("imagem", c.getImagem());
 
 
                 getDataBase().insert("cancelamento", null, values);
@@ -76,19 +77,18 @@ public class CancelamentoDao {
         }
     }
 
-    public void alterarJustificativa(Desconto d) {
+    public void alterarJustificativa(Cancelamento c) {
         ContentValues values = new ContentValues();
-        values.put("justificativa", d.getJustificativa());
-
-        getDataBase().update("cancelamento", values, "numNota = ? and serie = ? and codigoFilial = ?",
-                new String[]{d.getNumNota() + "", d.getSerie(), d.getCodigoFilial() + "", d.getCodLm() + ""});
+        values.put("justificativa", c.getJustificativa());
+        values.put("imagem", c.getImagem());
+        getDataBase().update("cancelamento", values, "cod = ?", new String[]{c.getCod() + ""});
     }
 
-    public void export(Desconto d) {
+    public void export(Cancelamento c) {
         ContentValues values = new ContentValues();
         values.put("export", 1);
-        getDataBase().update("cancelamento", values, "numNota = ? and serie = ? and codigoFilial = ?",
-                new String[]{d.getNumNota() + "", d.getSerie(), d.getCodigoFilial() + "", d.getCodLm() + ""});
+        getDataBase().update("cancelamento", values, "cod = ?",
+                new String[]{c.getCod() + ""});
     }
 
 
@@ -104,6 +104,23 @@ public class CancelamentoDao {
         try {
             while (cursor.moveToNext()) {
                 Cancelamento c = new Cancelamento();
+                c.setCod(cursor.getFloat(cursor.getColumnIndex("cod")));
+                c.setCodigoFilial(cursor.getInt(cursor.getColumnIndex("codigoFilial")));
+                c.setFilial(cursor.getString(cursor.getColumnIndex("filial")));
+                c.setRegional(cursor.getString(cursor.getColumnIndex("regional")));
+                c.setNumNota(cursor.getFloat(cursor.getColumnIndex("numNota")));
+                c.setSerie(cursor.getString(cursor.getColumnIndex("serie")));
+                c.setValorTotal(cursor.getFloat(cursor.getColumnIndex("valorTotal")));
+                c.setDatNota(cursor.getString(cursor.getColumnIndex("dataNota")));
+                c.setDataCancelamento(cursor.getString(cursor.getColumnIndex("dataCancelamento")));
+                c.setNumCaixa(cursor.getFloat(cursor.getColumnIndex("numCaixa")));
+                c.setUsuarioCancel(cursor.getString(cursor.getColumnIndex("usuarioCancel")));
+                c.setCodigoCondicao(cursor.getInt(cursor.getColumnIndex("codigoCondicao")));
+                c.setCodigoPagto(cursor.getString(cursor.getColumnIndex("codicaoPagto")));
+                c.setJustificativa(cursor.getString(cursor.getColumnIndex("justificativa")));
+                c.setCodigoUsuario(cursor.getInt(cursor.getColumnIndex("codigoUsuario")));
+                c.setDataAte(cursor.getString(cursor.getColumnIndex("dataAte")));
+                c.setDataDe(cursor.getString(cursor.getColumnIndex("dataDe")));
 
                 lista.add(c);
             }

@@ -17,7 +17,8 @@ import br.com.leroymerlin.model.Grafico;
 
 public class WebServiceSoapGetInfoGrafico {
 
-    private static String URL = "http://192.168.15.22/wsandroid/auditoria.asmx";
+    private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
+    //private static String URL = "http://10.56.96.86/wshomol/auditoria.asmx";
 
     private static String SOAP_ACTION = "http://tempuri.org/";
 
@@ -26,7 +27,7 @@ public class WebServiceSoapGetInfoGrafico {
     private static String NAMESPACE = "http://tempuri.org/";
 
     public static List<Grafico> infoGrafico(int tipo, int codFilial) {
-        SoapObject response, itemSoapObject;
+        SoapObject response;
         List<Grafico> lista = new ArrayList<>();
         // Create request
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);

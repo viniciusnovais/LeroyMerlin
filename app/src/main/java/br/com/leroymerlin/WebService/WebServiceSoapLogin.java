@@ -14,8 +14,8 @@ import br.com.leroymerlin.Activity.LoginActivity;
 
 public class WebServiceSoapLogin {
 
-    //private static String URL="http://10.56.96.86/wspda/inventario.asmx";
-    private static String URL="http://192.168.15.22/wsandroid/inventario.asmx";
+    private static String URL="http://179.184.159.52/wshomol/inventario.asmx";
+    //private static String URL = "http://10.56.96.86/wshomol/inventario.asmx";
 
     private static String SOAP_ACTION = "http://tempuri.org/GetAutenticacao";
 

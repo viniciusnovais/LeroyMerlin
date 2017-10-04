@@ -11,14 +11,15 @@ import java.util.Hashtable;
 
 public class Desconto implements KvmSerializable {
 
+    private float cod;
     private int codigoUsuario;
     private int codigoFilial;
     private String filial;
     private String regional;
-    private float numNota;
+    private String numNota;
     private String serie;
     private String secao;
-    private float codLm;
+    private String codLm;
     private String descricao;
     private float valorNF;
     private float valorDesconto;
@@ -30,20 +31,25 @@ public class Desconto implements KvmSerializable {
     private String dataFim;
     private String nomeCliente;
     private String cpfCliente;
+    private float valorVenda;
+    private String operador;
+    private String vendedor;
     private int export;
+    private byte[] imagem;
 
     public Desconto() {
         codigoUsuario = 0;
         codigoFilial = 0;
         filial = "";
         regional = "";
-        numNota = 0;
+        numNota = "";
         serie = "";
         secao = "";
-        codLm = 0;
+        codLm = "";
         descricao = "";
         valorNF = 0;
         valorDesconto = 0;
+        valorVenda = 0;
         percentual = 0;
         ocorrencia = "";
         data = "";
@@ -52,9 +58,11 @@ public class Desconto implements KvmSerializable {
         dataFim = "";
         nomeCliente = "";
         cpfCliente = "";
+        operador = "";
+        vendedor = "";
     }
 
-    public Desconto(int codigoUsuario, int codigoFilial, String filial, String regional, float numNota, String serie, String secao, float codLm, String descricao, float valorNF, float valorDesconto, float percentual, String ocorrencia, String data, String justificativa, String dataInicio, String dataFim, String nomeCliente, String cpfCliente) {
+    public Desconto(int codigoUsuario, int codigoFilial, String filial, String regional, String numNota, String serie, String secao, String codLm, String descricao, float valorNF, float valorDesconto, float percentual, String ocorrencia, String data, String justificativa, String dataInicio, String dataFim, String nomeCliente, String cpfCliente, float valorVenda, String operador, String vendedor) {
         this.codigoUsuario = codigoUsuario;
         this.codigoFilial = codigoFilial;
         this.filial = filial;
@@ -66,6 +74,7 @@ public class Desconto implements KvmSerializable {
         this.descricao = descricao;
         this.valorNF = valorNF;
         this.valorDesconto = valorDesconto;
+        this.valorVenda = valorVenda;
         this.percentual = percentual;
         this.ocorrencia = ocorrencia;
         this.data = data;
@@ -74,6 +83,17 @@ public class Desconto implements KvmSerializable {
         this.dataFim = dataFim;
         this.nomeCliente = nomeCliente;
         this.cpfCliente = cpfCliente;
+        this.operador = operador;
+        this.vendedor = vendedor;
+
+    }
+
+    public float getCod() {
+        return cod;
+    }
+
+    public void setCod(float cod) {
+        this.cod = cod;
     }
 
     public int getCodigoUsuario() {
@@ -108,11 +128,11 @@ public class Desconto implements KvmSerializable {
         this.regional = regional;
     }
 
-    public float getNumNota() {
+    public String getNumNota() {
         return numNota;
     }
 
-    public void setNumNota(float numNota) {
+    public void setNumNota(String numNota) {
         this.numNota = numNota;
     }
 
@@ -132,11 +152,11 @@ public class Desconto implements KvmSerializable {
         this.secao = secao;
     }
 
-    public float getCodLm() {
+    public String getCodLm() {
         return codLm;
     }
 
-    public void setCodLm(float codLm) {
+    public void setCodLm(String codLm) {
         this.codLm = codLm;
     }
 
@@ -228,6 +248,38 @@ public class Desconto implements KvmSerializable {
         this.cpfCliente = cpfCliente;
     }
 
+    public float getValorVenda() {
+        return valorVenda;
+    }
+
+    public void setValorVenda(float valorVenda) {
+        this.valorVenda = valorVenda;
+    }
+
+    public String getOperador() {
+        return operador;
+    }
+
+    public void setOperador(String operador) {
+        this.operador = operador;
+    }
+
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
+
     @Override
     public Object getProperty(int i) {
         switch (i) {
@@ -254,21 +306,27 @@ public class Desconto implements KvmSerializable {
             case 10:
                 return valorDesconto;
             case 11:
-                return percentual;
+                return valorVenda;
             case 12:
-                return ocorrencia;
+                return percentual;
             case 13:
-                return data;
+                return ocorrencia;
             case 14:
-                return justificativa;
+                return data;
             case 15:
-                return dataInicio;
+                return justificativa;
             case 16:
-                return dataFim;
+                return dataInicio;
             case 17:
-                return nomeCliente;
+                return dataFim;
             case 18:
+                return nomeCliente;
+            case 19:
                 return cpfCliente;
+            case 20:
+                return operador;
+            case 21:
+                return vendedor;
 
         }
         return null;
@@ -276,7 +334,7 @@ public class Desconto implements KvmSerializable {
 
     @Override
     public int getPropertyCount() {
-        return 19;
+        return 22;
     }
 
     @Override
@@ -291,29 +349,32 @@ public class Desconto implements KvmSerializable {
             case 2:
                 filial = o.toString();
                 break;
-            case 4:
+            case 3:
                 regional = o.toString();
                 break;
-            case 5:
-                numNota = Float.parseFloat(o.toString());
+            case 4:
+                numNota = o.toString();
                 break;
-            case 6:
+            case 5:
                 serie = o.toString();
                 break;
-            case 7:
+            case 6:
                 secao = o.toString();
                 break;
-            case 8:
-                codLm = Float.parseFloat(o.toString());
+            case 7:
+                codLm = o.toString();
                 break;
-            case 9:
+            case 8:
                 descricao = o.toString();
                 break;
-            case 10:
+            case 9:
                 valorNF = Float.parseFloat(o.toString());
                 break;
-            case 11:
+            case 10:
                 valorDesconto = Float.parseFloat(o.toString());
+                break;
+            case 11:
+                valorVenda = Float.parseFloat(o.toString());
                 break;
             case 12:
                 percentual = Float.parseFloat(o.toString());
@@ -338,6 +399,12 @@ public class Desconto implements KvmSerializable {
                 break;
             case 19:
                 cpfCliente = o.toString();
+                break;
+            case 20:
+                operador = o.toString();
+                break;
+            case 21:
+                vendedor = o.toString();
                 break;
         }
 
@@ -392,36 +459,50 @@ public class Desconto implements KvmSerializable {
                 break;
             case 11:
                 propertyInfo.type = PropertyInfo.LONG_CLASS;
-                propertyInfo.name = "Percentual";
+                propertyInfo.name = "ValorVenda";
                 break;
             case 12:
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                propertyInfo.name = "Ocorrencia";
+                propertyInfo.type = PropertyInfo.LONG_CLASS;
+                propertyInfo.name = "Percentual";
                 break;
             case 13:
                 propertyInfo.type = PropertyInfo.STRING_CLASS;
-                propertyInfo.name = "DtAtuest";
+                propertyInfo.name = "Ocorrencia";
                 break;
             case 14:
                 propertyInfo.type = PropertyInfo.STRING_CLASS;
-                propertyInfo.name = "Justificativa";
+                propertyInfo.name = "DtAtuest";
                 break;
             case 15:
                 propertyInfo.type = PropertyInfo.STRING_CLASS;
-                propertyInfo.name = "DataInicio";
+                propertyInfo.name = "Justificativa";
                 break;
             case 16:
                 propertyInfo.type = PropertyInfo.STRING_CLASS;
-                propertyInfo.name = "DataFim";
+                propertyInfo.name = "DataInicio";
                 break;
             case 17:
                 propertyInfo.type = PropertyInfo.STRING_CLASS;
-                propertyInfo.name = "NomeCliente";
+                propertyInfo.name = "DataFim";
                 break;
             case 18:
                 propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "NomeCliente";
+                break;
+            case 19:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
                 propertyInfo.name = "CPFCliente";
                 break;
+            case 20:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "Operador";
+                break;
+            case 21:
+                propertyInfo.type = PropertyInfo.STRING_CLASS;
+                propertyInfo.name = "Vendedor";
+                break;
+
+
         }
     }
 }

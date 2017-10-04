@@ -3,11 +3,8 @@ package br.com.leroymerlin.WebService;
 import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.Marshal;
-import org.ksoap2.serialization.MarshalBase64;
 import org.ksoap2.serialization.MarshalDate;
 import org.ksoap2.serialization.MarshalFloat;
-import org.ksoap2.serialization.MarshalHashtable;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -17,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.leroymerlin.Activity.LoginActivity;
-import br.com.leroymerlin.Activity.LogisticaActivity;
 import br.com.leroymerlin.model.Desconto;
 
 /**
@@ -26,7 +22,8 @@ import br.com.leroymerlin.model.Desconto;
 
 public class WebServiceSoapDesconto {
 
-    private static String URL = "http://192.168.15.22/wsandroid/auditoria.asmx";
+    private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
+    //private static String URL = "http://10.56.96.86/wshomol/auditoria.asmx";
 
     private static String SOAP_ACTION = "http://tempuri.org/";
 
@@ -34,7 +31,7 @@ public class WebServiceSoapDesconto {
 
     private static String NAMESPACE = "http://tempuri.org/";
 
-    private static String SOAP_ACTION_POST = "http://tempuri.org/SetDescontoJustificar ";
+    private static String SOAP_ACTION_POST = "http://tempuri.org/SetDescontoJustificar";
 
 
     public static List<Desconto> GetListaDesconto(int codFilial) {
@@ -83,26 +80,35 @@ public class WebServiceSoapDesconto {
                 for (int j = 0; j < soap.getPropertyCount(); j++) {
                     Desconto d = new Desconto();
                     SoapObject item = (SoapObject) soap.getProperty(j);
+                    d.setCod(Float.parseFloat(item.getProperty("Codigo").toString()));
                     d.setCodigoUsuario(Integer.parseInt(item.getProperty("CodigoUsuario").toString()));
                     d.setCodigoFilial(Integer.parseInt(item.getProperty("CodigoFilial").toString()));
                     d.setFilial(item.getProperty("Filial").toString());
                     d.setRegional(item.getProperty("Regional").toString());
-                    d.setNumNota(Float.parseFloat(item.getProperty("NumNota").toString()));
+                    d.setNumNota(item.getProperty("NumNota").toString());
                     d.setSerie(item.getProperty("Serie").toString());
                     d.setSecao(item.getProperty("Secao").toString());
-                    d.setCodLm(Float.parseFloat(item.getProperty("CodigoLm").toString()));
+                    d.setCodLm(item.getProperty("CodigoLm").toString());
                     d.setDescricao(item.getProperty("Descricao").toString());
                     d.setValorNF(Float.parseFloat(item.getProperty("ValorNF").toString()));
                     d.setValorDesconto(Float.parseFloat(item.getProperty("ValorDesconto").toString()));
                     d.setPercentual(Float.parseFloat(item.getProperty("Percentual").toString()));
                     d.setOcorrencia(item.getProperty("Ocorrencia").toString());
-                    d.setData(item.getProperty("DtAtuest").toString());
+                    d.setData(item.getProperty("DtAtuestAndroid").toString());
                     d.setJustificativa(item.getProperty("Justificativa").toString());
                     d.setDataInicio(item.getProperty("DataInicio").toString());
                     d.setDataFim(item.getProperty("DataFim").toString());
+                    d.setValorVenda(Float.parseFloat(item.getProperty("ValorVenda").toString()));
+                    d.setOperador(item.getProperty("Operador").toString());
+
+                    if (item.getProperty("Vendedor").toString().equals("anyType{}")) {
+                        d.setVendedor("Não informado");
+                    } else {
+                        d.setVendedor(item.getProperty("Vendedor").toString());
+                    }
                     d.setNomeCliente(item.getProperty("NomeCliente").toString());
                     if (item.getProperty("CPFCliente").toString().equals("anyType{}")) {
-                        d.setCpfCliente("Não Informado");
+                        d.setCpfCliente("Não informado");
                     } else {
                         d.setCpfCliente(item.getProperty("CPFCliente").toString());
                     }
@@ -125,9 +131,24 @@ public class WebServiceSoapDesconto {
 
         // Create request
         SoapObject request = new SoapObject(NAMESPACE, "SetDescontoJustificar");
+
+        String error = "";
         try {
 
-            request.addProperty("justificativa", d);
+            PropertyInfo propertyCod = new PropertyInfo();
+            PropertyInfo propertyJus = new PropertyInfo();
+
+            propertyCod.setName("codigo");
+            propertyCod.setValue(d.getCod());
+            propertyCod.setType(PropertyInfo.INTEGER_CLASS);
+
+            request.addProperty(propertyCod);
+
+            propertyJus.setName("justificativa");
+            propertyJus.setValue(d.getJustificativa());
+            propertyJus.setType(PropertyInfo.STRING_CLASS);
+
+            request.addProperty(propertyJus);
 
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.implicitTypes = true;
@@ -140,10 +161,14 @@ public class WebServiceSoapDesconto {
             MarshalDate mdDate = new MarshalDate();
             mdDate.register(envelope);
 
-            envelope.addMapping(NAMESPACE, "justificativa", new Desconto().getClass());
+//            envelope.addMapping(NAMESPACE, "justificativa", new Desconto().getClass());
             HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
 
             androidHttpTransport.call(SOAP_ACTION_POST, envelope);
+
+            error = envelope.getResponse().toString();
+
+            Log.w("error", error.toString());
 
         } catch (Exception e) {
             e.printStackTrace();

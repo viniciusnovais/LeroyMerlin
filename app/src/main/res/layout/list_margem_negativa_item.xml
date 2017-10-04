@@ -39,14 +39,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="Filial:" />
+                        android:text="@string/filial" />
 
                     <TextView
                         android:id="@+id/tvFilial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="1-INTERLAGOS"
                         android:textColor="@color/colorBlack" />
 
                 </LinearLayout>
@@ -60,13 +59,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Série:" />
+                        android:text="@string/lm" />
 
                     <TextView
-                        android:id="@+id/tvSerie"
+                        android:id="@+id/tvLm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="U18"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -79,13 +77,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nota:" />
+                        android:text="@string/margem" />
 
                     <TextView
-                        android:id="@+id/tvNota"
+                        android:id="@+id/tvMargem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="225593"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
             </LinearLayout>
@@ -108,13 +105,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="2dp"
-                        android:text="Data NF:" />
+                        android:text="@string/descricao" />
 
                     <TextView
-                        android:id="@+id/tvDataNF"
+                        android:id="@+id/tvDescricao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="22/09/2017 12:00:00"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -127,17 +123,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Caixa:" />
+                        android:text="@string/preco" />
 
                     <TextView
-                        android:id="@+id/tvCaixa"
+                        android:id="@+id/tvPreco"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
-r
+                r
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -147,13 +143,12 @@ r
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Valor NF:" />
+                        android:text="@string/qtde" />
 
                     <TextView
-                        android:id="@+id/tvValorNf"
+                        android:id="@+id/tvQtde"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="109,00"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -177,13 +172,12 @@ r
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Usuário Canc.:" />
+                        android:text="@string/data" />
 
                     <TextView
-                        android:id="@+id/tvUsuarioCan"
+                        android:id="@+id/tvData"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="442 - CCX MMACEDO"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -191,19 +185,36 @@ r
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".4"
+                    android:layout_weight=".2"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Condição Pagto.:" />
+                        android:text="@string/custo" />
 
                     <TextView
-                        android:id="@+id/tvCondPagto"
+                        android:id="@+id/tvCusto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1 - A VISTA"
+                        android:textColor="@color/colorBlack" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/encargos" />
+
+                    <TextView
+                        android:id="@+id/tvEncargos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 

@@ -39,14 +39,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="Filial:" />
+                        android:text="@string/filial" />
 
                     <TextView
                         android:id="@+id/tvFilial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="1-INTERLAGOS"
                         android:textColor="@color/colorBlack" />
 
                 </LinearLayout>
@@ -60,32 +59,30 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Série:" />
-
-                    <TextView
-                        android:id="@+id/tvSerie"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="U18"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nota:" />
+                        android:text="@string/nota" />
 
                     <TextView
                         android:id="@+id/tvNota"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="225593"
+                        android:textColor="@color/colorBlack" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/serie" />
+
+                    <TextView
+                        android:id="@+id/tvSerie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
             </LinearLayout>
@@ -108,13 +105,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="2dp"
-                        android:text="Data NF:" />
+                        android:text="@string/cliente" />
 
                     <TextView
-                        android:id="@+id/tvDataNF"
+                        android:id="@+id/tvCliente"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="22/09/2017 12:00:00"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
@@ -127,17 +123,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Caixa:" />
+                        android:text="@string/dataNf" />
 
                     <TextView
-                        android:id="@+id/tvCaixa"
+                        android:id="@+id/tvDataNf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
-r
+                r
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -147,63 +143,12 @@ r
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Valor NF:" />
+                        android:text="@string/valor_nf" />
 
                     <TextView
                         android:id="@+id/tvValorNf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="109,00"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:paddingLeft="5dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".6"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Usuário Canc.:" />
-
-                    <TextView
-                        android:id="@+id/tvUsuarioCan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="442 - CCX MMACEDO"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".4"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Condição Pagto.:" />
-
-                    <TextView
-                        android:id="@+id/tvCondPagto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1 - A VISTA"
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 

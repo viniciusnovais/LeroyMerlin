@@ -31,4 +31,26 @@
     <string name="semana">Semana</string>
     <string name="mes">Mês</string>
     <string name="ano">Ano</string>
+    <string name="filial">Filial</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="pedido">Pedido</string>
+    <string name="caixa">Caixa</string>
+    <string name="data_pedido">Data Pedido</string>
+    <string name="valor_parcial">Valor Parcial</string>
+    <string name="valor_nf">Valor NF</string>
+    <string name="data_entrega">Data Entrega</string>
+    <string name="cliente">Cliente</string>
+    <string name="justifique">Justifique</string>
+    <string name="nota">Nota</string>
+    <string name="serie">Série</string>
+    <string name="descricao">Descrição</string>
+    <string name="lm">LM</string>
+    <string name="qtde">Quantidade</string>
+    <string name="nomeUser">Nome Usuário</string>
+    <string name="data">Data</string>
+    <string name="margem">Margem</string>
+    <string name="preco">Preço</string>
+    <string name="custo">Custo</string>
+    <string name="encargos">Encargos</string>
+    <string name="dataNf">Data NF</string>
 </resources>

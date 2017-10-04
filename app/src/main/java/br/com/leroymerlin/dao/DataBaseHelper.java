@@ -13,8 +13,7 @@ import java.util.List;
  */
 
 public class DataBaseHelper extends SQLiteOpenHelper {
-
-    private static final int VERSAO = 3;
+    private static final int VERSAO = 11;
     private static final String BANCO_DADOS = "LeroyMerlin";
 
     public DataBaseHelper(Context context) {
@@ -26,13 +25,26 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS grafico(descricao TEXT, valor REAL, ano INTEGER, mes INTEGER, dia INTEGER, semana INTEGER, tipoGrafico INTEGER)");
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS desconto(codigoUsuario INTEGER, codigoFilial INTEGER, filial TEXT, regional TEXT, numNota REAL, serie TEXT," +
-                " secao TEXT, codLm INTEGER, descricao TEXT, valorNF REAL, valorDesconto REAL, percentual REAL, ocorrencia TEXT, data TEXT," +
-                " justificativa TEXT, dataInicio TEXT, dataFim TEXT, nomeCliente TEXT, cpfCliente TEXT, export INTEGER)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS desconto(cod REAL,codigoUsuario INTEGER, codigoFilial INTEGER, filial TEXT, regional TEXT, numNota REAL, serie TEXT," +
+                " secao TEXT, codLm TEXT, descricao TEXT, valorNF REAL, valorDesconto REAL, percentual REAL, ocorrencia TEXT, data TEXT," +
+                " justificativa TEXT, dataInicio TEXT, dataFim TEXT, nomeCliente TEXT, cpfCliente TEXT,valorVenda REAL, operador TEXT, vendedor TEXT, export INTEGER," +
+                " imagem BLOB)");
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS cancelamento(codigoFilial INTEGER, filial TEXT, regional TEXT, numNota REAL, serie TEXT," +
+        db.execSQL("CREATE TABLE IF NOT EXISTS cancelamento(cod REAL, codigoFilial INTEGER, filial TEXT, regional TEXT, numNota REAL, serie TEXT," +
                 " valorTotal REAL, dataNota TEXT, dataCancelamento TEXT, numCaixa INTEGER, usuarioCancel TEXT, codigoCondicao INTEGER, codicaoPagto TEXT, justificativa TEXT," +
-                " codigoUsuario INTEGER, dataDe TEXT, dataAte TEXT,export INTEGER)");
+                " codigoUsuario INTEGER, dataDe TEXT, dataAte TEXT,export INTEGER, imagem BLOB)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS assistenciaTecnica(cod REAL, regional TEXT, codigoFilial INTEGER, filial TEXT, numNota TEXT, serie TEXT, nomeCliente TEXT, valorTotal TEXT," +
+                " dataNota TEXT, dataInicio TEXT, dataFim TEXT, justificativa TEXT, export INTEGER, imagem BLOB)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS demarcaConhecida(cod REAL, codigoFilial INTEGER, filial TEXT, numNota TEXT, serie TEXT, codigoProduto TEXT, descricao TEXT, quantidade TEXT," +
+                " valorTotal TEXT, dtAtuest TEXT, justificativa TEXT, nomeUser TEXT, regional TEXT, dataInicio TEXT, dataFim TEXT, export INTEGER, imagem BLOB)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS pendenteFaturamento(cod REAL,filial TEXT,regional TEXT, codigoFilial INTEGER, pedido TEXT, nomeCliente TEXT, dataPedido TEXT, dataEntrega TEXT, valorTotal TEXT," +
+                " valorParcial TEXT, numCaixa INTEGER, dataInicio TEXT, dataFim TEXT, justificativa TEXT, export INTEGER, imagem BLOB)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS margemNegativa(cod REAL, regional TEXT, codigoFilial INTEGER, filial TEXT, codigoProduto TEXT, descricao TEXT, quantidade TEXT, precoVenda TEXT," +
+                " custo TEXT, encargos TEXT, margem TEXT, dtAtuest, dataInicio TEXT, dataFim TEXT, justificativa TEXT, export INTEGER, imagem BLOB)");
     }
 
     @Override

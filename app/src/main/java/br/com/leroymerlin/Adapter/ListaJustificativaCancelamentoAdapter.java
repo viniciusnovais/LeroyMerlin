@@ -24,9 +24,8 @@ public class ListaJustificativaCancelamentoAdapter extends RecyclerView.Adapter<
 
     private Context context;
     private LayoutInflater mLayoutInflater;
-    private ItemOnClick itemOnClick;
-    //listaTeste
     private List<Cancelamento> lista;
+    private ItemOnClick itemOnClick;
 
     public interface ItemOnClick {
         void onClick(int position);
@@ -47,8 +46,7 @@ public class ListaJustificativaCancelamentoAdapter extends RecyclerView.Adapter<
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = mLayoutInflater.inflate(R.layout.list_cancelamento_item, parent, false);
-        LinearLayout ll = (LinearLayout) v.findViewById(R.id.linearLayoutBox);
-        MyViewHolder mvh = new MyViewHolder(v, ll);
+        MyViewHolder mvh = new MyViewHolder(v);
 
         return mvh;
     }
@@ -77,12 +75,18 @@ public class ListaJustificativaCancelamentoAdapter extends RecyclerView.Adapter<
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         Calendar ca = Calendar.getInstance();
-        ca.set(Calendar.DAY_OF_MONTH, Integer.parseInt(c.getDataCancelamento().substring(8, 10)));
-        ca.set(Calendar.MONTH, Integer.parseInt(c.getDataCancelamento().substring(5, 7)));
-        ca.set(Calendar.YEAR, Integer.parseInt(c.getDataCancelamento().substring(0, 4)));
-        ca.set(Calendar.HOUR_OF_DAY, Integer.parseInt(c.getDataCancelamento().substring(11, 13)));
-        ca.set(Calendar.MINUTE, Integer.parseInt(c.getDataCancelamento().substring(14, 16)));
-        ca.set(Calendar.SECOND, Integer.parseInt(c.getDataCancelamento().substring(17, 19)));
+        try {
+            ca.set(Calendar.DAY_OF_MONTH, Integer.parseInt(c.getDataCancelamento().substring(8, 10)));
+            ca.set(Calendar.MONTH, Integer.parseInt(c.getDataCancelamento().substring(5, 7)) - 1);
+            ca.set(Calendar.YEAR, Integer.parseInt(c.getDataCancelamento().substring(0, 4)));
+            ca.set(Calendar.HOUR_OF_DAY, Integer.parseInt(c.getDataCancelamento().substring(11, 13)));
+            ca.set(Calendar.MINUTE, Integer.parseInt(c.getDataCancelamento().substring(14, 16)));
+            ca.set(Calendar.SECOND, Integer.parseInt(c.getDataCancelamento().substring(17, 19)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            holder.tvDataNf.setText("Não informado");
+
+        }
 
         holder.tvDataNf.setText(sdf.format(ca.getTime()));
 
@@ -113,7 +117,7 @@ public class ListaJustificativaCancelamentoAdapter extends RecyclerView.Adapter<
         private TextView tvFilial, tvNota, tvSerie, tvDataNf, tvUsuarioCancel, tvCondPagto, tvCaixa, tvValorNota;
 
 
-        public MyViewHolder(final View itemView, LinearLayout llBox) {
+        public MyViewHolder(final View itemView) {
             super(itemView);
             ll = (LinearLayout) itemView.findViewById(R.id.linearLayoutJustificativa);
             tvFilial = (TextView) itemView.findViewById(R.id.tvFilial);

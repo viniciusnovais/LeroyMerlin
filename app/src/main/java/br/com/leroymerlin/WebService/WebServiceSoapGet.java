@@ -14,8 +14,8 @@ import br.com.leroymerlin.Activity.LoginActivity;
 
 public class WebServiceSoapGet {
 
-    //private static String URL="http://10.56.96.86/wsauditoria/Auditoria.asmx";
-    private static String URL = "http://192.168.15.22/wsandroid/auditoria.asmx";
+    //private static String URL="http://10.56.96.86/wshomol/auditoria.asmx";
+    private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
 
     private static String SOAP_ACTION = "http://tempuri.org/";
 

@@ -25,47 +25,9 @@
             android:name=".Activity.HomeActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".Activity.AtendimentoActivity"
-            android:label=""></activity>
 
-        <activity
-            android:name=".Activity.Atendimento2Activity"
-            android:label=""></activity>
-
-        <activity
-            android:name=".Activity.InventarioActivity"
-            android:label=""></activity>
-
-        <activity
-            android:name=".Activity.Inventario2Activity"
-            android:label=""></activity>
-        <activity
-            android:name=".Activity.PerdaActivity"
-            android:label=""></activity>
-        <activity
-            android:name=".Activity.Perda2Activity"
-            android:label=""></activity>
-
-        <activity
-            android:name=".Activity.GestaoActivity"
-            android:label=""></activity>
-        <activity
-            android:name=".Activity.Gestao2Activity"
-            android:label=""></activity>
-
-        <activity
-            android:name=".Activity.ComercioActivity"
-            android:label=""></activity>
         <activity
             android:name=".Activity.Comercio2Activity"
-            android:label=""></activity>
-
-        <activity
-            android:name=".Activity.LogisticaActivity"
-            android:label=""></activity>
-        <activity
-            android:name=".Activity.Logistica2Activity"
             android:label=""></activity>
 
         <activity android:name=".Activity.AtendimentoGrupoActivity">
@@ -87,10 +49,6 @@
 
         <activity
             android:name=".Activity.ListaActivity"
-            android:label=""></activity>
-
-        <activity
-            android:name=".Activity.ListaJustificativaActivity"
             android:label=""></activity>
 
         <activity
