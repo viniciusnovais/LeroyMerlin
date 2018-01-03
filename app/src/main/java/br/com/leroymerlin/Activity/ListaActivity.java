@@ -2,8 +2,10 @@ package br.com.leroymerlin.Activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ import br.com.leroymerlin.Adapter.ListaJustificativaCancelamentoAdapter;
 import br.com.leroymerlin.Adapter.ListaJustificativaDemarcaAdapter;
 import br.com.leroymerlin.Adapter.ListaJustificativaDescontoAdapter;
 import br.com.leroymerlin.Adapter.ListaJustificativaFaturamentoAdapter;
+import br.com.leroymerlin.Adapter.ListaJustificativaMargemNegativaAdapter;
 import br.com.leroymerlin.R;
 import br.com.leroymerlin.WebService.WebServiceSoapAssistenciaTecnica;
 import br.com.leroymerlin.WebService.WebServiceSoapCancelamento;
@@ -55,31 +58,42 @@ import br.com.leroymerlin.model.MargemNegativa;
 
 public class ListaActivity extends AppCompatActivity {
 
+    //lists
     private List<Desconto> lista;
     private List<Cancelamento> cancelamentoList;
     private List<FaturamentoPendente> faturamentoPendenteList;
     private List<DemarcaConhecida> demarcaConhecidaList;
     private List<MargemNegativa> margemNegativas;
     private List<AssistenciaTecnica> assistenciaTecnicas;
+    //modelos
     private Desconto d = new Desconto();
     private Cancelamento c = new Cancelamento();
     private FaturamentoPendente f = new FaturamentoPendente();
-    private ListaJustificativaDemarcaAdapter demarcaAdapter;
-    private RecyclerView recyclerView;
-    private int tipo;
-    private String justificativa = "";
+    private MargemNegativa m = new MargemNegativa();
+    private AssistenciaTecnica a = new AssistenciaTecnica();
+    private DemarcaConhecida de = new DemarcaConhecida();
+    //adapter
     private ListaJustificativaDescontoAdapter adapter;
     private ListaJustificativaCancelamentoAdapter cancelamentoAdapter;
     private ListaJustificativaFaturamentoAdapter faturamentoAdapter;
     private ListaJustificativaAssistenciaTecnicaAdapter assistenciaTecnicaAdapter;
+    private ListaJustificativaMargemNegativaAdapter margemNegativaAdapter;
+    private ListaJustificativaDemarcaAdapter demarcaAdapter;
+    //dao
     private DescontoDao descontoDao;
     private CancelamentoDao cancelamentoDao;
     private DemarcaConhecidaDao demarcaConhecidaDao;
     private MargemNegativaDao margemNegativaDao;
     private AssistenciaTecnicaDao assistenciaTecnicaDao;
-    byte[] imageByte = new byte[0];
     private FaturamentoPendenteDao faturamentoPendenteDao;
-    AlertDialog dialogCamera = null;
+    //recyclerview
+    private RecyclerView recyclerView;
+    //variaves aleatorias
+    private int tipo;
+    private String justificativa = "";
+    private byte[] imageByte = new byte[0];
+    private AlertDialog dialogCamera = null;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,9 +120,22 @@ public class ListaActivity extends AppCompatActivity {
 
     }
 
+
     public class AsyncLista extends AsyncTask {
 
         SharedPreferences preferences = getSharedPreferences(LoginActivity.PREF_NAME, MODE_PRIVATE);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = new ProgressDialog(ListaActivity.this);
+            progressDialog.setMessage("Carregando...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setCanceledOnTouchOutside(true);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
 
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -138,41 +165,68 @@ public class ListaActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            if (tipo == 101) {
-                adapter = new ListaJustificativaDescontoAdapter(ListaActivity.this, descontoDao.listar(preferences.getInt("codFilial", -1)));
-                recyclerView.setAdapter(adapter);
 
-                adapter.setOnItemClick(new ListaJustificativaDescontoAdapter.ItemOnClick() {
-                    @Override
-                    public void onClick(int position) {
-                        popupJustificar(position);
-                    }
-                });
-            } else if (tipo == 107) {
-                cancelamentoAdapter = new ListaJustificativaCancelamentoAdapter(ListaActivity.this, cancelamentoDao.listar(preferences.getInt("codFilial", -1)));
-                recyclerView.setAdapter(cancelamentoAdapter);
+            if (progressDialog.isShowing()) {
+                if (tipo == 101) {
+                    adapter = new ListaJustificativaDescontoAdapter(ListaActivity.this, descontoDao.listar(preferences.getInt("codFilial", -1)));
+                    recyclerView.setAdapter(adapter);
 
-                cancelamentoAdapter.setOnItemClick(new ListaJustificativaCancelamentoAdapter.ItemOnClick() {
-                    @Override
-                    public void onClick(int position) {
-                        popupJustificar(position);
-                    }
-                });
-            } else if (tipo == 111) {
-                faturamentoAdapter = new ListaJustificativaFaturamentoAdapter(ListaActivity.this, faturamentoPendenteDao.listar(preferences.getInt("codFilial", -1)));
-                recyclerView.setAdapter(faturamentoAdapter);
-                faturamentoAdapter.setOnItemClick(new ListaJustificativaFaturamentoAdapter.ItemOnClick() {
-                    @Override
-                    public void onClick(int position) {
-                        popupJustificar(position);
-                    }
-                });
-            } else if (tipo == 601) {
-                demarcaAdapter = new ListaJustificativaDemarcaAdapter(ListaActivity.this, demarcaConhecidaDao.listar(preferences.getInt("codFilial", -1)));
-                recyclerView.setAdapter(demarcaAdapter);
-            } else if (tipo == 305) {
-                assistenciaTecnicaAdapter = new ListaJustificativaAssistenciaTecnicaAdapter(ListaActivity.this, assistenciaTecnicaDao.listar(preferences.getInt("codFilial", -1)));
-                recyclerView.setAdapter(assistenciaTecnicaAdapter);
+                    adapter.setOnItemClick(new ListaJustificativaDescontoAdapter.ItemOnClick() {
+                        @Override
+                        public void onClick(int position) {
+                            popupJustificar(position);
+                        }
+                    });
+                } else if (tipo == 107) {
+                    cancelamentoAdapter = new ListaJustificativaCancelamentoAdapter(ListaActivity.this, cancelamentoDao.listar(preferences.getInt("codFilial", -1)));
+                    recyclerView.setAdapter(cancelamentoAdapter);
+
+                    cancelamentoAdapter.setOnItemClick(new ListaJustificativaCancelamentoAdapter.ItemOnClick() {
+                        @Override
+                        public void onClick(int position) {
+                            popupJustificar(position);
+                        }
+                    });
+                } else if (tipo == 111) {
+                    faturamentoAdapter = new ListaJustificativaFaturamentoAdapter(ListaActivity.this, faturamentoPendenteDao.listar(preferences.getInt("codFilial", -1)));
+                    recyclerView.setAdapter(faturamentoAdapter);
+                    faturamentoAdapter.setOnItemClick(new ListaJustificativaFaturamentoAdapter.ItemOnClick() {
+                        @Override
+                        public void onClick(int position) {
+                            popupJustificar(position);
+                        }
+                    });
+                } else if (tipo == 601) {
+                    demarcaAdapter = new ListaJustificativaDemarcaAdapter(ListaActivity.this, demarcaConhecidaDao.listar(preferences.getInt("codFilial", -1)));
+                    recyclerView.setAdapter(demarcaAdapter);
+                    demarcaAdapter.setOnItemClick(new ListaJustificativaCancelamentoAdapter.ItemOnClick() {
+                        @Override
+                        public void onClick(int position) {
+                            popupJustificar(position);
+                        }
+                    });
+
+                } else if (tipo == 406) {
+                    margemNegativaAdapter = new ListaJustificativaMargemNegativaAdapter(ListaActivity.this, margemNegativaDao.listar(preferences.getInt("codFilial", -1)));
+                    recyclerView.setAdapter(margemNegativaAdapter);
+                    margemNegativaAdapter.setOnItemClick(new ListaJustificativaMargemNegativaAdapter.ItemOnClick() {
+                        @Override
+                        public void onClick(int position) {
+                            popupJustificar(position);
+                        }
+                    });
+                } else if (tipo == 305) {
+                    assistenciaTecnicaAdapter = new ListaJustificativaAssistenciaTecnicaAdapter(ListaActivity.this, assistenciaTecnicaDao.listar(preferences.getInt("codFilial", -1)));
+                    recyclerView.setAdapter(assistenciaTecnicaAdapter);
+                    assistenciaTecnicaAdapter.setOnClickListener(new ListaJustificativaAssistenciaTecnicaAdapter.ItemOnClick() {
+                        @Override
+                        public void onClick(int position) {
+                            popupJustificar(position);
+                        }
+                    });
+                }
+
+                progressDialog.dismiss();
             }
         }
     }
@@ -191,6 +245,12 @@ public class ListaActivity extends AppCompatActivity {
                 resposta = WebServiceSoapCancelamento.postJustificativa((Cancelamento) params[0]);
             } else if (codigoTile == 111) {
                 resposta = WebServiceSoapFaturamentoPendente.postJustificativa((FaturamentoPendente) params[0]);
+            } else if (codigoTile == 601) {
+                resposta = WebServiceSoapDemarcaConhecida.postJustificativa((DemarcaConhecida) params[0]);
+            } else if (codigoTile == 406) {
+                resposta = WebServiceSoapMargemNegativa.postJustificativa((MargemNegativa) params[0]);
+            } else if (codigoTile == 305) {
+                resposta = WebServiceSoapAssistenciaTecnica.postJustificativa((AssistenciaTecnica) params[0]);
             }
 
             //se exportar a resposta, muda a flag para 1
@@ -218,6 +278,15 @@ public class ListaActivity extends AppCompatActivity {
                     } else if ((int) objects[3] == 111) {
                         faturamentoPendenteDao.export((FaturamentoPendente) objects[0]);
                         faturamentoAdapter.remove(Integer.parseInt(objects[1].toString()));
+                    } else if ((int) objects[3] == 601) {
+                        demarcaConhecidaDao.export((DemarcaConhecida) objects[0]);
+                        demarcaAdapter.remove(Integer.parseInt(objects[1].toString()));
+                    } else if ((int) objects[3] == 406) {
+                        margemNegativaDao.export((MargemNegativa) objects[0]);
+                        margemNegativaAdapter.remove(Integer.parseInt(objects[1].toString()));
+                    } else if ((int) objects[3] == 305) {
+                        assistenciaTecnicaDao.export((AssistenciaTecnica) objects[0]);
+                        assistenciaTecnicaAdapter.remove(Integer.parseInt(objects[1].toString()));
                     }
 
                 }
@@ -299,6 +368,31 @@ public class ListaActivity extends AppCompatActivity {
 
                         AsyncPostJustificativa task = new AsyncPostJustificativa();
                         task.execute(f, position, false, 111);
+                    } else if (tipo == 601) {
+                        de = demarcaConhecidaList.get(position);
+                        de.setImagem(imageByte);
+                        de.setJustificativa(justificativa);
+                        demarcaConhecidaDao.alterarJustificativa(de);
+
+                        AsyncPostJustificativa task = new AsyncPostJustificativa();
+                        task.execute(de, position, false, 601);
+
+                    } else if (tipo == 406) {
+                        m = margemNegativas.get(position);
+                        m.setImagem(imageByte);
+                        m.setJustificativa(justificativa);
+                        margemNegativaDao.alterarJustificativa(m);
+
+                        AsyncPostJustificativa task = new AsyncPostJustificativa();
+                        task.execute(m, position, false, 406);
+                    } else if (tipo == 305) {
+                        a = assistenciaTecnicas.get(position);
+                        a.setImagem(imageByte);
+                        a.setJustificativa(justificativa);
+                        assistenciaTecnicaDao.alterarJustificativa(a);
+
+                        AsyncPostJustificativa task = new AsyncPostJustificativa();
+                        task.execute(a, position, false, 305);
                     }
                     dialog.dismiss();
                 }

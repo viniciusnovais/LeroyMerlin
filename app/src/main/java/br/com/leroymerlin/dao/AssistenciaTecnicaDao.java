@@ -45,6 +45,7 @@ public class AssistenciaTecnicaDao {
             deletar();
             for (AssistenciaTecnica a : lista) {
                 ContentValues values = new ContentValues();
+                values.put("cod", a.getCod());
                 values.put("regional", a.getRegional());
                 values.put("codigoFilial", a.getCodigoFilial());
                 values.put("filial", a.getFilial());
@@ -56,8 +57,8 @@ public class AssistenciaTecnicaDao {
                 values.put("dataInicio", a.getDataInicio());
                 values.put("dataFim", a.getDataFim());
                 values.put("justificativa", a.getJustificativa());
-                values.put("export",0);
-                values.put("imagem",a.getImagem());
+                values.put("export", 0);
+                values.put("imagem", a.getImagem());
 
                 getDataBase().insert("assistenciaTecnica", null, values);
 
@@ -71,7 +72,7 @@ public class AssistenciaTecnicaDao {
 
     public void alterarJustificativa(AssistenciaTecnica a) {
         ContentValues values = new ContentValues();
-        values.put("jsutificativa", a.getJustificativa());
+        values.put("justificativa", a.getJustificativa());
         values.put("imagem", a.getImagem());
 
         getDataBase().update("assistenciaTecnica", values, "cod = ?", new String[]{a.getCod() + ""});

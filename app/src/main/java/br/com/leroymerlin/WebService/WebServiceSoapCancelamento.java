@@ -23,8 +23,8 @@ import br.com.leroymerlin.model.Desconto;
 
 public class WebServiceSoapCancelamento {
 
-    private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
-    //private static String URL = "http://10.56.96.86/wshomol/auditoria.asmx";
+    //private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
+    private static String URL = "http://10.56.96.86/wshomol/auditoria.asmx";
 
     private static String SOAP_ACTION = "http://tempuri.org/";
 

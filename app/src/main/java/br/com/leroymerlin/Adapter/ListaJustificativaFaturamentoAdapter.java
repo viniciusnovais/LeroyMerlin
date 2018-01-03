@@ -65,13 +65,43 @@ public class ListaJustificativaFaturamentoAdapter extends RecyclerView.Adapter<L
 
         holder.tvCaixa.setText(f.getNumCaixa() + "");
 
-        holder.tvDataPedido.setText(f.getDataPedido());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-        holder.tvValorParcial.setText(f.getValorParcial());
+        Calendar ca = Calendar.getInstance();
+        try {
+            ca.set(Calendar.DAY_OF_MONTH, Integer.parseInt(f.getDataPedido().substring(8, 10)));
+            ca.set(Calendar.MONTH, Integer.parseInt(f.getDataPedido().substring(5, 7)) - 1);
+            ca.set(Calendar.YEAR, Integer.parseInt(f.getDataPedido().substring(0, 4)));
+            ca.set(Calendar.HOUR_OF_DAY, Integer.parseInt(f.getDataPedido().substring(11, 13)));
+            ca.set(Calendar.MINUTE, Integer.parseInt(f.getDataPedido().substring(14, 16)));
+            ca.set(Calendar.SECOND, Integer.parseInt(f.getDataPedido().substring(17, 19)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            holder.tvDataPedido.setText("Não informado");
 
-        holder.tvDataEntrega.setText(f.getDataEntrega());
+        }
 
-        holder.tvValorNf.setText(f.getValorTotal());
+        holder.tvDataPedido.setText(sdf.format(ca.getTime()));
+
+        holder.tvValorParcial.setText(String.format("%.2f", Float.parseFloat(f.getValorParcial())).replaceAll("[.]", ","));
+
+        Calendar ca2 = Calendar.getInstance();
+        try {
+            ca2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(f.getDataEntrega().substring(8, 10)));
+            ca2.set(Calendar.MONTH, Integer.parseInt(f.getDataEntrega().substring(5, 7)) - 1);
+            ca2.set(Calendar.YEAR, Integer.parseInt(f.getDataEntrega().substring(0, 4)));
+            ca2.set(Calendar.HOUR_OF_DAY, Integer.parseInt(f.getDataEntrega().substring(11, 13)));
+            ca2.set(Calendar.MINUTE, Integer.parseInt(f.getDataEntrega().substring(14, 16)));
+            ca2.set(Calendar.SECOND, Integer.parseInt(f.getDataEntrega().substring(17, 19)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            holder.tvDataPedido.setText("Não informado");
+
+        }
+
+        holder.tvDataEntrega.setText(sdf.format(ca2.getTime()));
+
+        holder.tvValorNf.setText(String.format("%.2f", Float.parseFloat(f.getValorTotal())).replaceAll("[.]", ","));
 
         holder.tvNomeCliente.setText(f.getNomeCliente());
 

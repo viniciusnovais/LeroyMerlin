@@ -24,12 +24,13 @@ import br.com.leroymerlin.model.MargemNegativa;
 
 public class WebServiceSoapAssistenciaTecnica {
 
-    private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
-    //private static String URL = "http://10.56.96.86/wshomol/auditoria.asmx";
+    //private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
+    private static String URL = "http://10.56.96.86/wshomol/auditoria.asmx";
 
     private static String SOAP_ACTION = "http://tempuri.org/";
 
     private static String METHOD_NAME = "GetListaAssistenciaTecnica";
+    private static String SOAP_ACTION_POST = "http://tempuri.org/SetAssistenciaTecnicaJustificar";
 
     private static String NAMESPACE = "http://tempuri.org/";
 
@@ -78,7 +79,7 @@ public class WebServiceSoapAssistenciaTecnica {
                 for (int j = 0; j < soap.getPropertyCount(); j++) {
                     AssistenciaTecnica a = new AssistenciaTecnica();
                     SoapObject item = (SoapObject) soap.getProperty(j);
-                    //a.setCod(Float.parseFloat(item.getPrimitivePropertyAsString("cod")));
+                    a.setCod(Float.parseFloat(item.getPrimitivePropertyAsString("Codigo")));
                     a.setRegional(item.getPrimitivePropertyAsString("Regional"));
                     a.setCodigoFilial(Integer.parseInt(item.getPrimitivePropertyAsString("CodigoFilial")));
                     a.setFilial(item.getPrimitivePropertyAsString("Filial"));
@@ -105,8 +106,53 @@ public class WebServiceSoapAssistenciaTecnica {
 
     }
 
-    public static boolean postJustificativa(FaturamentoPendente param) {
+    public static boolean postJustificativa(AssistenciaTecnica a) {
 
-        return false;
+//         Create request
+        String error = "";
+        SoapObject request = new SoapObject(NAMESPACE, "SetAssistenciaTecnicaJustificar");
+        try {
+
+            PropertyInfo propertyCod = new PropertyInfo();
+            PropertyInfo propertyJus = new PropertyInfo();
+
+            propertyCod.setName("codigo");
+            propertyCod.setValue(a.getCod());
+            propertyCod.setType(PropertyInfo.INTEGER_CLASS);
+
+            request.addProperty(propertyCod);
+
+            propertyJus.setName("justificativa");
+            propertyJus.setValue(a.getJustificativa());
+            propertyJus.setType(PropertyInfo.STRING_CLASS);
+
+            request.addProperty(propertyJus);
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.implicitTypes = true;
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+
+            MarshalFloat md = new MarshalFloat();
+            md.register(envelope);
+
+            MarshalDate mdDate = new MarshalDate();
+            mdDate.register(envelope);
+
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+            androidHttpTransport.call(SOAP_ACTION_POST, envelope);
+
+            error = envelope.getResponse().toString();
+
+            Log.w("error", error.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        //Return booleam to calling object
+        return true;
     }
+
 }

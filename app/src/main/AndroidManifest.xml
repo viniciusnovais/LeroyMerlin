@@ -27,17 +27,11 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".Activity.Comercio2Activity"
-            android:label=""></activity>
-
-        <activity android:name=".Activity.AtendimentoGrupoActivity">
-
-        </activity>
-
-
-        <activity
             android:name=".Activity.GraficoActivity"
+            android:configChanges="orientation|screenSize"
             android:label=""></activity>
+
+        <activity android:name=".Activity.AtendimentoGrupoActivity"></activity>
 
         <activity
             android:name=".Activity.ComercioGrupoActivity"
@@ -49,6 +43,7 @@
 
         <activity
             android:name=".Activity.ListaActivity"
+            android:configChanges="orientation|screenSize"
             android:label=""></activity>
 
         <activity

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.leroymerlin.R;
@@ -55,7 +57,7 @@ public class ListaJustificativaAssistenciaTecnicaAdapter extends RecyclerView.Ad
 
         holder.tvfilial.setText(a.getFilial());
 
-        holder.tvValorNf.setText(a.getValorTotal());
+        holder.tvValorNf.setText(String.format("%.2f",Float.parseFloat(a.getValorTotal())).replaceAll("[.]",","));
 
         holder.tvSerie.setText(a.getSerie());
 
@@ -63,13 +65,36 @@ public class ListaJustificativaAssistenciaTecnicaAdapter extends RecyclerView.Ad
 
         holder.tvCliente.setText(a.getNomeCliente());
 
-        holder.tvDataNf.setText(a.getDataNota());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        Calendar ca = Calendar.getInstance();
+        try {
+            ca.set(Calendar.DAY_OF_MONTH, Integer.parseInt(a.getDataNota().substring(8, 10)));
+            ca.set(Calendar.MONTH, Integer.parseInt(a.getDataNota().substring(5, 7)) - 1);
+            ca.set(Calendar.YEAR, Integer.parseInt(a.getDataNota().substring(0, 4)));
+            ca.set(Calendar.HOUR_OF_DAY, Integer.parseInt(a.getDataNota().substring(11, 13)));
+            ca.set(Calendar.MINUTE, Integer.parseInt(a.getDataNota().substring(14, 16)));
+            ca.set(Calendar.SECOND, Integer.parseInt(a.getDataNota().substring(17, 19)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            holder.tvDataNf.setText("Não informado");
+
+        }
+
+        holder.tvDataNf.setText(sdf.format(ca.getTime()));
 
     }
 
     @Override
     public int getItemCount() {
         return lista.size();
+    }
+
+    public void remove(int position) {
+        lista.remove(position);
+        notifyItemRemoved(position);
+        notifyItemChanged(position, lista.size());
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

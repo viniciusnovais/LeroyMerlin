@@ -75,7 +75,7 @@ public class DemarcaConhecidaDao {
     public void alterarJustificativa(DemarcaConhecida d) {
         ContentValues values = new ContentValues();
         values.put("justificativa", d.getJustificativa());
-
+        values.put("imagem", d.getImagem());
         getDataBase().update("demarcaConhecida", values, "cod = ?",
                 new String[]{d.getCod() + ""});
     }
@@ -101,7 +101,7 @@ public class DemarcaConhecidaDao {
 
             while (cursor.moveToNext()) {
                 DemarcaConhecida d = new DemarcaConhecida();
-                //d.setCod(cursor.getFloat(cursor.getColumnIndex("cod")));
+                d.setCod(cursor.getFloat(cursor.getColumnIndex("cod")));
                 d.setCodigoFilial(cursor.getInt(cursor.getColumnIndex("codigoFilial")));
                 d.setFilial(cursor.getString(cursor.getColumnIndex("filial")));
                 d.setNumNota(cursor.getString(cursor.getColumnIndex("numNota")));

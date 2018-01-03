@@ -101,7 +101,10 @@ public class GraficoActivity extends AppCompatActivity {
             progressDialog = new ProgressDialog(GraficoActivity.this);
             progressDialog.setMessage("Carregando...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setCanceledOnTouchOutside(true);
+            progressDialog.setCancelable(false);
             progressDialog.show();
+
         }
 
         @Override
@@ -122,16 +125,20 @@ public class GraficoActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 while (graficoDao.FINISH) {
-                    DecimalFormat df = new DecimalFormat("##,###,###,###");
-                    tvAno.setText(df.format(graficoDao.listarResumo().get(0).getAno()).replace(",", "."));
-                    tvMes.setText(df.format(graficoDao.listarResumo().get(0).getMes()).replace(",", "."));
-                    tvSemana.setText(df.format(graficoDao.listarResumo().get(0).getSemana()).replace(",", "."));
-                    tvHoje.setText(df.format(graficoDao.listarResumo().get(0).getDia()).replace(",", "."));
+                    try {
+                        DecimalFormat df = new DecimalFormat("##,###,###,###");
+                        tvAno.setText(df.format(graficoDao.listarResumo().get(0).getAno()).replace(",", "."));
+                        tvMes.setText(df.format(graficoDao.listarResumo().get(0).getMes()).replace(",", "."));
+                        tvSemana.setText(df.format(graficoDao.listarResumo().get(0).getSemana()).replace(",", "."));
+                        tvHoje.setText(df.format(graficoDao.listarResumo().get(0).getDia()).replace(",", "."));
 
-                    viewPager.setAdapter(new PageAdapterGrafico(getSupportFragmentManager(), titulos, codFilial));
-                    tabLayout.setupWithViewPager(viewPager);
+                        viewPager.setAdapter(new PageAdapterGrafico(getSupportFragmentManager(), titulos, codFilial));
+                        tabLayout.setupWithViewPager(viewPager);
 
-                    graficoDao.FINISH = false;
+                        graficoDao.FINISH = false;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

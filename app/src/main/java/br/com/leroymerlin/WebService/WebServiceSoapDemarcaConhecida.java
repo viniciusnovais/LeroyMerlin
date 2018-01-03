@@ -1,5 +1,7 @@
 package br.com.leroymerlin.WebService;
 
+import android.util.Log;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalDate;
 import org.ksoap2.serialization.MarshalFloat;
@@ -21,12 +23,13 @@ import br.com.leroymerlin.model.FaturamentoPendente;
 
 public class WebServiceSoapDemarcaConhecida {
 
-    private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
-    //private static String URL = "http://10.56.96.86/wshomol/auditoria.asmx";
+    //private static String URL = "http://179.184.159.52/wshomol/auditoria.asmx";
+    private static String URL = "http://10.56.96.86/wshomol/auditoria.asmx";
 
     private static String SOAP_ACTION = "http://tempuri.org/";
 
     private static String METHOD_NAME = "GetListaDemarcaConhecida";
+    private static String SOAP_ACTION_POST="http://tempuri.org/SetDemarcaConhecidaJustificar";
 
     private static String NAMESPACE = "http://tempuri.org/";
 
@@ -105,8 +108,52 @@ public class WebServiceSoapDemarcaConhecida {
 
     }
 
-    public static boolean postJustificativa(FaturamentoPendente param) {
+    public static boolean postJustificativa(DemarcaConhecida d) {
 
-        return false;
+        // Create request
+        String error = "";
+        SoapObject request = new SoapObject(NAMESPACE, "SetCancelamentoJustificar");
+        try {
+
+            PropertyInfo propertyCod = new PropertyInfo();
+            PropertyInfo propertyJus = new PropertyInfo();
+
+            propertyCod.setName("codigo");
+            propertyCod.setValue(d.getCod());
+            propertyCod.setType(PropertyInfo.INTEGER_CLASS);
+
+            request.addProperty(propertyCod);
+
+            propertyJus.setName("justificativa");
+            propertyJus.setValue(d.getJustificativa());
+            propertyJus.setType(PropertyInfo.STRING_CLASS);
+
+            request.addProperty(propertyJus);
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.implicitTypes = true;
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+
+            MarshalFloat md = new MarshalFloat();
+            md.register(envelope);
+
+            MarshalDate mdDate = new MarshalDate();
+            mdDate.register(envelope);
+
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+            androidHttpTransport.call(SOAP_ACTION_POST, envelope);
+
+            error = envelope.getResponse().toString();
+
+            Log.w("error", error.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        //Return booleam to calling object
+        return true;
     }
 }

@@ -89,6 +89,7 @@ public class MargemNegativaDao {
 
         ContentValues values = new ContentValues();
         values.put("export", 1);
+        getDataBase().update("margemNegativa", values, "cod = ?", new String[]{m.getCod() + ""});
     }
 
     public List<MargemNegativa> listar(int codFilial) {

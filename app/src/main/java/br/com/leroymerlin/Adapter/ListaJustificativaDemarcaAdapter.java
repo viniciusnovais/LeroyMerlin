@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.leroymerlin.R;
@@ -58,9 +60,25 @@ public class ListaJustificativaDemarcaAdapter extends RecyclerView.Adapter<Lista
 
         holder.tvSerie.setText(d.getSerie());
 
-        holder.tvData.setText(d.getDtAtuest());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-        holder.tvValorNf.setText(d.getValorTotal());
+        Calendar ca = Calendar.getInstance();
+        try {
+            ca.set(Calendar.DAY_OF_MONTH, Integer.parseInt(d.getDtAtuest().substring(8, 10)));
+            ca.set(Calendar.MONTH, Integer.parseInt(d.getDtAtuest().substring(5, 7)) - 1);
+            ca.set(Calendar.YEAR, Integer.parseInt(d.getDtAtuest().substring(0, 4)));
+            ca.set(Calendar.HOUR_OF_DAY, Integer.parseInt(d.getDtAtuest().substring(11, 13)));
+            ca.set(Calendar.MINUTE, Integer.parseInt(d.getDtAtuest().substring(14, 16)));
+            ca.set(Calendar.SECOND, Integer.parseInt(d.getDtAtuest().substring(17, 19)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            holder.tvData.setText("Não informado");
+
+        }
+
+        holder.tvData.setText(sdf.format(ca.getTime()));
+
+        holder.tvValorNf.setText(String.format("%.2f",Float.parseFloat(d.getValorTotal())).replaceAll("[.]",","));
 
         holder.tvLm.setText(d.getCodigoProduto());
 
@@ -74,6 +92,13 @@ public class ListaJustificativaDemarcaAdapter extends RecyclerView.Adapter<Lista
     @Override
     public int getItemCount() {
         return lista.size();
+    }
+
+    public void remove(int position) {
+        lista.remove(position);
+        notifyItemRemoved(position);
+        notifyItemChanged(position, lista.size());
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
